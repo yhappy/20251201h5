@@ -1,223 +1,330 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // 初始化加载动画
-    startLoadingAnimation();
+/**
+ * 页面配置常量
+ */
+const CONFIG = {
+    // 容器宽度配置
+    WIDTHS: {
+        INITIAL: 8186,
+        PART2: 17140,
+        PART3: 26308,
+        PART4: 32525,
+        PART5: 50259
+    },
+    // 进度条配置
+    PROGRESS: {
+        MAX_WIDTH: 778,
+        INCREMENT: 20
+    },
+    // 动画延迟配置
+    DELAYS: {
+        FADE_IN_TITLE: 800,
+        FADE_IN_TIP: 2800,
+        SCROLL_RESET: 100
+    }
+};
 
-    // 检测是否为移动设备
-    if (navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
-        adaptToMobile(); // 移动端适配
+/**
+ * H5 应用主类
+ * 负责管理页面生命周期和所有交互逻辑
+ */
+class H5App {
+    constructor() {
+        // 缓存 DOM 元素引用
+        this.dom = {
+            loading: document.querySelector('.loading'),
+            container: document.querySelector('.container'),
+            musicBtn: document.querySelector('.pl_bt'),
+            progressLine: document.querySelector('.progress'),
+            tips: document.querySelector('.p0_tips'),
+            loadingText: document.querySelector('.p0_loading'),
+            audio: document.getElementById('music'),
+            iconOn: document.querySelector('.yy1'),
+            iconOff: document.querySelector('.yy2')
+        };
+
+        this.init();
     }
 
-    setTimeout(function () {
-        // 如果播放器最初是可见的，则将其隐藏（原始逻辑）
-        // 在我们的案例中，它通过 CSS display:none 隐藏
-    }, 1000);
+    /**
+     * 初始化应用
+     */
+    init() {
+        this.startLoadingAnimation();
 
-    // 初始化事件监听
-    initEventListeners();
-});
+        if (this.isMobileDevice()) {
+            this.adaptToMobile();
+        }
 
-/**
- * 适配移动端窗口大小
- * 将横屏内容旋转以适应竖屏手机
- */
-function adaptToMobile() {
-    var windowHeight = window.innerHeight;
+        this.bindEvents();
+    }
 
-    var loadingEl = document.querySelector('.loading');
-    loadingEl.classList.add('main-phone');
-    loadingEl.style.width = windowHeight + 'px';
+    /**
+     * 检测是否为移动设备
+     */
+    isMobileDevice() {
+        return /phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone/i.test(navigator.userAgent);
+    }
 
-    var containerEl = document.querySelector('.container');
-    containerEl.classList.add('main-phone2');
+    /**
+     * 移动端适配
+     */
+    adaptToMobile() {
+        const windowHeight = window.innerHeight;
 
-    var musicBtnEl = document.querySelector('.pl_bt');
-    musicBtnEl.classList.add('pl_bt2');
+        this.dom.loading.classList.add('main-phone');
+        this.dom.loading.style.width = `${windowHeight}px`;
+        this.dom.container.classList.add('main-phone2');
+        this.dom.musicBtn.classList.add('pl_bt2');
 
-    setTimeout(function () {
-        window.scrollTo(0, 0);
-    }, 100);
-}
+        setTimeout(() => window.scrollTo(0, 0), CONFIG.DELAYS.SCROLL_RESET);
+    }
 
-/**
- * 开始加载页面的进度条动画
- */
-function startLoadingAnimation() {
-    var loadingEl = document.querySelector('.loading');
-    loadingEl.style.display = 'block';
+    /**
+     * 启动加载进度条动画
+     */
+    startLoadingAnimation() {
+        this.dom.loading.style.display = 'block';
+        let progressValue = 0;
 
-    var progressLine = document.querySelector(".progress");
-    var progressValue = 0;
-    var maxProgress = 778; // 进度条最大宽度
+        const animate = () => {
+            const currentWidth = parseInt(this.dom.progressLine.offsetWidth);
 
-    function animateProgress() {
-        if (parseInt(progressLine.offsetWidth) < maxProgress) {
-            progressValue += 20;
-            if (progressValue > maxProgress) progressValue = maxProgress;
-            progressLine.style.width = progressValue + 'px';
-            requestAnimationFrame(animateProgress);
+            if (currentWidth < CONFIG.PROGRESS.MAX_WIDTH) {
+                progressValue = Math.min(
+                    progressValue + CONFIG.PROGRESS.INCREMENT,
+                    CONFIG.PROGRESS.MAX_WIDTH
+                );
+                this.dom.progressLine.style.width = `${progressValue}px`;
+                requestAnimationFrame(animate);
+            } else {
+                this.onLoadingComplete();
+            }
+        };
+
+        requestAnimationFrame(animate);
+    }
+
+    /**
+     * 加载完成回调
+     */
+    onLoadingComplete() {
+        this.dom.tips.style.display = 'block';
+        if (this.dom.loadingText) {
+            this.dom.loadingText.style.display = 'none';
+        }
+    }
+
+    /**
+     * 进入主场景
+     */
+    enterMainScene() {
+        this.toggleMusic(true);
+        this.dom.loading.style.display = 'none';
+        this.dom.container.style.display = 'block';
+        this.dom.musicBtn.style.display = 'block';
+
+        // 延时显示元素
+        setTimeout(() => this.fadeIn('.img1'), CONFIG.DELAYS.FADE_IN_TITLE);
+        setTimeout(() => this.fadeIn('.dianjijiaoshui0'), CONFIG.DELAYS.FADE_IN_TIP);
+
+        // 播放所有背景视频
+        this.playAllVideos();
+    }
+
+    /**
+     * 播放所有背景视频
+     */
+    playAllVideos() {
+        Array.from(document.getElementsByClassName('bgVideo')).forEach(video => {
+            video.play().catch(err => console.warn('视频播放失败:', err));
+        });
+    }
+
+    /**
+     * 更新容器宽度
+     */
+    setContainerWidth(width) {
+        this.dom.container.style.width = `${width}px`;
+    }
+
+    /**
+     * 切换背景音乐
+     */
+    toggleMusic(forcePlay = null) {
+        if (!this.dom.audio) return;
+
+        const shouldPlay = forcePlay === true || (forcePlay === null && this.dom.audio.paused);
+
+        if (shouldPlay) {
+            this.dom.audio.play().catch(err => console.warn('音频播放失败:', err));
+            this.dom.iconOn.style.display = 'block';
+            this.dom.iconOff.style.display = 'none';
         } else {
-            // 加载完成，显示开始按钮
-            document.querySelector(".p0_tips").style.display = 'block';
-            // 隐藏加载中的提示（如果有）
-            var loadingText = document.querySelector(".p0_loading");
-            if (loadingText) loadingText.style.display = 'none';
+            this.dom.audio.pause();
+            this.dom.iconOn.style.display = 'none';
+            this.dom.iconOff.style.display = 'block';
         }
     }
-    requestAnimationFrame(animateProgress);
-}
 
-/**
- * 进入主场景
- * 隐藏加载页，显示主容器，播放音乐和视频
- */
-function enterMainScene() {
-    toggleBackgroundMusic(true); // 强制播放音乐
-    document.querySelector('.loading').style.display = 'none';
-    document.querySelector('.container').style.display = 'block';
-    document.querySelector('.pl_bt').style.display = 'block';
+    /**
+     * 元素淡入效果
+     */
+    fadeIn(selector) {
+        const element = document.querySelector(selector);
+        if (!element) return;
 
-    // 延时显示标题和提示
-    setTimeout(function () {
-        fadeInElement(document.querySelector(".img1"));
-    }, 800);
-    setTimeout(function () {
-        fadeInElement(document.querySelector(".dianjijiaoshui0"));
-    }, 2800);
+        element.style.opacity = 0;
+        element.style.display = 'block';
 
-    // 播放所有背景视频
-    const videos = document.getElementsByClassName('bgVideo');
-    for (let i = 0; i < videos.length; i++) {
-        videos[i].play().catch(e => console.log("视频播放失败:", e));
-    }
-}
+        let lastTime = Date.now();
 
-/**
- * 更新容器宽度以实现横向滚动效果
- * @param {number} width - 新的容器宽度
- */
-function updateContainerWidth(width) {
-    document.querySelector('.container').style.width = width + 'px';
-}
+        const tick = () => {
+            const now = Date.now();
+            const delta = (now - lastTime) / 400;
+            const newOpacity = parseFloat(element.style.opacity) + delta;
 
-/**
- * 切换背景音乐播放状态
- * @param {boolean|number} forcePlay - 1 或 true 强制播放，否则切换播放/暂停
- */
-function toggleBackgroundMusic(forcePlay) {
-    var audio = document.getElementById('music');
-    if (!audio) {
-        return;
+            element.style.opacity = newOpacity;
+            lastTime = now;
+
+            if (newOpacity < 1) {
+                requestAnimationFrame(tick);
+            }
+        };
+
+        tick();
     }
 
-    var iconOn = document.querySelector('.yy1'); // 播放图标
-    var iconOff = document.querySelector('.yy2'); // 暂停图标
-
-    if (forcePlay == 1 || forcePlay === true) {
-        audio.play().catch(e => console.log("音频播放失败:", e));
-        iconOn.style.display = 'block';
-        iconOff.style.display = 'none';
-    } else if (audio.paused) {
-        audio.play().catch(e => console.log("音频播放失败:", e));
-        iconOn.style.display = 'block';
-        iconOff.style.display = 'none';
-    } else {
-        audio.pause();
-        iconOn.style.display = 'none';
-        iconOff.style.display = 'block';
+    /**
+     * 显示/隐藏元素
+     */
+    show(selector) {
+        const el = document.querySelector(selector);
+        if (el) el.style.display = 'block';
     }
-}
 
-/**
- * 元素淡入效果
- * @param {HTMLElement} element - 需要淡入的元素
- */
-function fadeInElement(element) {
-    if (!element) return;
-    element.style.opacity = 0;
-    element.style.display = 'block';
+    hide(selector) {
+        const el = document.querySelector(selector);
+        if (el) el.style.display = 'none';
+    }
 
-    var lastTime = +new Date();
-    var tick = function () {
-        element.style.opacity = +element.style.opacity + (new Date() - lastTime) / 400;
-        lastTime = +new Date();
-        if (+element.style.opacity < 1) {
-            (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    /**
+     * 绑定所有事件监听
+     */
+    bindEvents() {
+        // 辅助函数：安全绑定点击事件
+        const onClick = (id, handler) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', handler.bind(this));
+        };
+
+        // 开始按钮
+        onClick('startBtn', this.enterMainScene);
+
+        // 音乐控制
+        onClick('musicBtn', () => this.toggleMusic());
+        onClick('loadingMusicBtn', () => this.toggleMusic());
+
+        // 场景展开
+        onClick('expandBtn', function () {
+            this.setContainerWidth(CONFIG.WIDTHS.PART2);
+            this.show('.part2');
+            this.hide('#expandBtn');
+            this.show('.img6');
+        });
+
+        // 弹窗系统
+        this.bindPopups();
+
+        // 浇水按钮（场景切换）
+        this.bindWaterButtons();
+
+        // 视频弹窗
+        this.bindVideoPopup();
+    }
+
+    /**
+     * 绑定弹窗事件
+     */
+    bindPopups() {
+        const bindPopup = (btnId, imgId) => {
+            const btn = document.getElementById(btnId);
+            const img = document.getElementById(imgId);
+
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    if (img) img.style.display = 'block';
+                });
+            }
+
+            if (img) {
+                img.addEventListener('click', (e) => {
+                    img.style.display = 'none';
+                    e.stopPropagation();
+                });
+            }
+        };
+
+        // Part 2 弹窗
+        bindPopup('p2PopupBtn', 'p2PopupImg');
+
+        // Part 3 弹窗（3个）
+        ['1', '2', '3'].forEach(num => {
+            bindPopup(`p3PopupBtn${num}`, `p3PopupImg${num}`);
+        });
+    }
+
+    /**
+     * 绑定浇水按钮事件
+     */
+    bindWaterButtons() {
+        const waterConfigs = [
+            { id: 'waterBtn1', width: CONFIG.WIDTHS.PART3, part: '.part3', tip: '.dianjijiaoshui' },
+            { id: 'waterBtn2', width: CONFIG.WIDTHS.PART4, part: '.part4', tip: '.dianjijiaoshui2' },
+            { id: 'waterBtn3', width: CONFIG.WIDTHS.PART5, part: '.part5', tip: '.dianjijiaoshui3' }
+        ];
+
+        waterConfigs.forEach(config => {
+            const btn = document.getElementById(config.id);
+            if (!btn) return;
+
+            btn.addEventListener('click', () => {
+                btn.style.opacity = '1';
+                this.setContainerWidth(config.width);
+                this.show(config.part);
+                this.show(config.tip);
+
+                // Part 5 特殊处理：同时显示 Part 6
+                if (config.part === '.part5') {
+                    this.show('.part6');
+                }
+            });
+        });
+    }
+
+    /**
+     * 绑定视频弹窗事件
+     */
+    bindVideoPopup() {
+        const openBtn = document.getElementById('videoPopupBtn');
+        const closeBtn = document.getElementById('videoPopupCloseBtn');
+        const player = document.querySelector('.fjsen-player');
+
+        if (openBtn && player) {
+            openBtn.addEventListener('click', () => {
+                player.style.display = 'block';
+                if (closeBtn) closeBtn.style.display = 'block';
+            });
         }
-    };
-    tick();
+
+        if (closeBtn && player) {
+            closeBtn.addEventListener('click', () => {
+                player.style.display = 'none';
+                closeBtn.style.display = 'none';
+            });
+        }
+    }
 }
 
-/**
- * 初始化所有交互事件
- */
-function initEventListeners() {
-    // 开始按钮
-    document.getElementById('startBtn').addEventListener('click', enterMainScene);
+// 启动应用
+document.addEventListener('DOMContentLoaded', () => new H5App());
 
-    // 音乐按钮
-    document.getElementById('musicBtn').addEventListener('click', function () { toggleBackgroundMusic(); });
-    document.getElementById('loadingMusicBtn').addEventListener('click', function () { toggleBackgroundMusic(); });
-
-    // 展开按钮 (第一部分 -> 第二部分)
-    document.getElementById('expandBtn').addEventListener('click', function () {
-        updateContainerWidth(17140);
-        document.querySelector('.part2').style.display = 'block';
-        this.style.display = 'none';
-        document.querySelector('.img6').style.display = 'block';
-    });
-
-    // 第二部分弹窗 (老物件)
-    document.getElementById('p2PopupBtn').addEventListener('click', function () {
-        document.getElementById('p2PopupImg').style.display = 'block';
-    });
-    document.getElementById('p2PopupImg').addEventListener('click', function (e) {
-        this.style.display = 'none';
-        e.stopPropagation();
-    });
-
-    // 浇水按钮 1 (第二部分 -> 第三部分)
-    document.getElementById('waterBtn1').addEventListener('click', function () {
-        this.style.opacity = '1';
-        updateContainerWidth(26308);
-        document.querySelector('.part3').style.display = 'block';
-        document.querySelector('.dianjijiaoshui').style.display = 'block';
-    });
-
-    // 第三部分弹窗 (三个弹窗)
-    ['1', '2', '3'].forEach(function (num) {
-        document.getElementById('p3PopupBtn' + num).addEventListener('click', function () {
-            document.getElementById('p3PopupImg' + num).style.display = 'block';
-        });
-        document.getElementById('p3PopupImg' + num).addEventListener('click', function (e) {
-            this.style.display = 'none';
-            e.stopPropagation();
-        });
-    });
-
-    // 浇水按钮 2 (第三部分 -> 第四部分)
-    document.getElementById('waterBtn2').addEventListener('click', function () {
-        this.style.opacity = '1';
-        updateContainerWidth(32525);
-        document.querySelector('.part4').style.display = 'block';
-        document.querySelector('.dianjijiaoshui2').style.display = 'block';
-    });
-
-    // 视频弹窗 (第四部分)
-    document.getElementById('videoPopupBtn').addEventListener('click', function () {
-        document.querySelector('.fjsen-player').style.display = 'block';
-        document.getElementById('videoPopupCloseBtn').style.display = 'block';
-    });
-    document.getElementById('videoPopupCloseBtn').addEventListener('click', function () {
-        document.querySelector('.fjsen-player').style.display = 'none';
-        this.style.display = 'none';
-    });
-
-    // 浇水按钮 3 (第四部分 -> 第五部分 & 第六部分)
-    document.getElementById('waterBtn3').addEventListener('click', function () {
-        this.style.opacity = '1';
-        updateContainerWidth(50259);
-        document.querySelector('.part5').style.display = 'block';
-        document.querySelector('.part6').style.display = 'block';
-        document.querySelector('.dianjijiaoshui3').style.display = 'block';
-    });
-}
