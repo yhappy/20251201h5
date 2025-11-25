@@ -1,0 +1,221 @@
+@charset "utf-8";
+/* CSS Document */
+
+div,table,html,body,form,ul,ol,li,dl,dt,img,dd,tr,span,input,select,img,p{margin:0 ;padding:0;}
+h1,h2,h3,h4,h5,h6{padding:0;margin:0;}
+body{
+	font-size: 14px;
+	font-family: "微软雅黑";
+	color: #000000;
+	text-align: left;
+    line-height:26px;
+    overflow: auto; /* 允许滚动，滚动条按需显示 */
+    /* 或者使用 overflow: scroll; 强制显示滚动条 */
+}
+a{color:#333333; text-decoration:none;}
+a:hover{text-decoration:none;}
+li{list-style:none;}
+
+.mycl{clear: both;}
+
+
+
+.main-phone{
+    width: 1334px; height: 750px; transform-origin: 375px 375px ; overflow:hidden;
+    -webkit-transform:rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);
+}
+.main-phone2{
+    /*width: 52511px;*/ height: 750px; transform-origin: 375px 375px ; overflow:hidden;
+    -webkit-transform:rotate(90deg); -moz-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);
+}
+
+.part{}
+.part1{background: url(../images/bg_01.jpg) no-repeat center top; width:8186px; height: 750px;float:left; position: relative;}
+.part2{background: url(../images/bg_02.jpg) no-repeat center top; width:8954px; height: 750px;float:left; margin-left: -2px;}
+.part3{background: url(../images/bg_03.jpg) no-repeat center top; width:9168px; height: 750px;float:left; margin-left: -2px;}
+.part4{background: url(../images/bg_04.jpg) no-repeat center top; width:6217px; height: 750px;float:left; margin-left: -2px;}
+.part5{background: url(../images/bg_05.jpg) no-repeat center top; width:9667px; height: 750px;float:left; margin-left: -2px;}
+.part6{background: url(../images/bg_06.jpg) no-repeat center top; width:8067px; height: 750px;float:left; margin-left: -2px;}
+
+
+
+
+/* 提示设置 */
+.tips{position: fixed; right:20%; bottom: 50%; margin-bottom: -115px;  z-index : 8; display: none; }
+
+/* p0 加载页 */
+.loading{background: url("../images/bg_loading.jpg") no-repeat center center/ 100% 100%; width: 100%; height: 750px; position: relative; margin: auto;  z-index : 20;}
+.p0_p{position: absolute; left:100px; top: 80px;}
+.p0_tips{position: absolute; left: 50%; margin-left: -65px; top: 50%; z-index: 99; display: none;}
+.progress_bg{background: url("../images/line_bg.png") no-repeat center top; width: 778px; height: 21px; position: absolute; top: 428px; left: 50%; margin-left: -389px; transform-origin: 50% 50%;}
+.progress_box{width: 778px; height: 21px;  border-radius: 7.5px; position: absolute; overflow: hidden; left:0px; top:0px; transform-origin: 50% 50%;}
+.progress{width: 0px; height: 21px; background:url("../images/line.png") no-repeat center top; background-size: cover; overflow: hidden;}
+.loading_music{position: absolute; right:100px; top:540px;}
+
+
+
+
+.container{ width: 8186px; height: 750px; overflow: hidden; }
+/*8186px 初始*/
+/*8186+8954=17140*/
+/*17140+9168=26308*/
+/*26308+6217=32525*/
+/*32525+9667+8067=50,259*/
+
+.top1{width: 2500px; height: 750px; background:url("../images/top1.gif") no-repeat center top; background-size: 100% 100%; left: 0px; top:0px;}
+
+.img1{position: absolute; top:110px;left: 350px; display: none;}
+.img2{position: absolute; top:110px;left: 3240px;}
+.img2new{position: absolute; top:110px;left: 2930px;}
+.img3{position: absolute; top:90px;left: 3940px;}
+.img4{position: absolute; top:110px;left: 5340px;}
+
+.p1_gif{position: absolute; top:-20px;left: 7200px; z-index:2;}
+.img5{position: absolute; top:450px;left: 7470px; z-index: 3;}
+.img6{position: absolute; top:450px;left: 7470px; z-index: 3; display: none;}
+
+.dianjijiaoshui0{position:absolute; left:1630px; top: 474px; z-index: 2; }
+.dianjijiaoshui{position:absolute; left:16680px; top: 474px; z-index: 2; }
+.dianjijiaoshui2{position:absolute; left:25645px; top: 474px; z-index: 2; }
+.dianjijiaoshui3{position:absolute; left:31875px; top: 474px; z-index: 2; }
+
+.p2_img_gai{position: absolute; top:0px; left: 13090px;}
+.p2_img_gai2{position: absolute; top:0px; left: 10034px;}
+
+.p2_lwj{position:relative; top: 0px; left: 1950px; width: 1088px; height: 740px;}
+.p2_lwj img{display: none;}
+
+.p3_tc_1{position:relative; top: 30px; left: 2250px; width:1250px; height: 600px;}
+.p3_tc_1 img{display: none;}
+
+.p3_tc_2{position:relative; top: -530px; left: 3850px; width:1250px; height: 600px;}
+.p3_tc_2 img{display: none;}
+
+.p3_tc_3{position:relative; top: -1130px; left: 5300px; width:1250px; height: 600px;}
+.p3_tc_3 img{display: none;}
+
+.p3_img_gai{position: absolute; left: 25345px; top:0px;}
+
+.p4_cf{ width: 300px; height: 300px; /*background: #666;*/ position:relative; top: 300px; left: 3050px;}
+.p4_cf_hide{  /*background: #666;*/ position:absolute; top: 150px; left: 29665px; padding: 15px; border-radius: 15px; background: #FFF; z-index: 5; display: none;}
+
+
+
+.wei1{position:absolute; left:46675px; top: 44px;}
+.wei2{position:absolute; left:48875px; top:90px;}
+
+
+.pl_bt{ position:absolute; z-index:1005; width:55px; height:55px; top:30px; right:30px;}    
+.pl_bt2{position: fixed; bottom: 30px; top:initial;}
+
+
+/*旋转*/
+.rotate {
+    -webkit-animation: rotating 1.2s linear infinite;
+    -moz-animation: rotating 1.2s linear infinite;
+    -o-animation: rotating 1.2s linear infinite;
+    animation: rotating 1.2s linear infinite
+}
+@keyframes rotating {
+    from { transform: rotate(0) }
+    to { transform: rotate(360deg) }
+}
+
+
+/* 放大缩小 */
+@keyframes scale1 {
+  0% {    transform: scale(1);  }
+  50% {     transform: scale(1.03);  }
+  100% {     transform: scale(1);  }
+}
+.scale1{animation:scale1 3s infinite linear;}
+
+
+/* 放大缩小 */
+@keyframes scale2 {
+  0% {    transform: scale(1);  }
+  50% {     transform: scale(1.07);  }
+  100% {     transform: scale(1);  }
+}
+.scale2{animation:scale2 3s infinite linear;}
+
+/* 放大缩小3 */
+.scale3 {animation: scale3 10s infinite linear;}
+@keyframes scale3 {
+    0% { transform: translateY(0px) scale(1.05);}
+    25% {transform: translateY(-15px) scale(0.93);}
+    50% {transform: translateY(0px) scale(1);}
+    75% { transform: translateY(-15px) scale(0.93);}
+    100% {transform: translateY(0px) scale(1.05);}
+}
+
+
+.slide-in-elliptic-top-fwd{-webkit-animation:slide-in-elliptic-top-fwd 1.7s cubic-bezier(.25,.46,.45,.94) both;animation:slide-in-elliptic-top-fwd 1.7s cubic-bezier(.25,.46,.45,.94) both}
+@-webkit-keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}@keyframes slide-in-elliptic-top-fwd{0%{-webkit-transform:translateY(-600px) rotateX(-30deg) scale(0);transform:translateY(-600px) rotateX(-30deg) scale(0);-webkit-transform-origin:50% 100%;transform-origin:50% 100%;opacity:0}100%{-webkit-transform:translateY(0) rotateX(0) scale(1);transform:translateY(0) rotateX(0) scale(1);-webkit-transform-origin:50% 1400px;transform-origin:50% 1400px;opacity:1}}
+
+
+/* 向左滑动动画 */
+.slideLeft{animation: slideLeft 1s linear infinite; /* 15秒完成一次动画，匀速循环 */}
+@keyframes slideLeft {
+    0% {
+        transform: translateX(0); /* 起始位置 */
+    }
+    100% {
+        transform: translateX(-130px); /* 向左滑动100%宽度 */
+    }
+}
+
+
+/* 定义 tada 动画关键帧 */
+@keyframes tada {
+  0% {
+    transform: scale(1);
+  }
+  10%, 20% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+  30%, 50%, 70%, 90% {
+    transform: scale(1.1) rotate(3deg);
+  }
+  40%, 60%, 80% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+
+/* 应用 tada 动画的类 */
+.tada {
+  /* 动画名称、时长、速度曲线、重复次数 */
+  animation: tada 1s cubic-bezier(.36,.07,.19,.97) both;
+  /* 可选：添加延迟 */
+  /* animation-delay: 0.5s; */
+  /* 可选：无限循环 */
+  animation-iteration-count: infinite;
+}
+
+
+.cloud-text {
+    animation: cloudFloat 8s ease-in-out infinite;
+}
+
+/* 定义云彩飘动动画 */
+@keyframes cloudFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    25% {
+        transform: translate(20px, -10px) scale(1.05);
+    }
+    50% {
+        transform: translate(0, -20px) scale(1.1);
+    }
+    75% {
+        transform: translate(-20px, -10px) scale(1.05);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
