@@ -1,142 +1,172 @@
 document.addEventListener('DOMContentLoaded', function () {
-    loading();
+    // 初始化加载动画
+    startLoadingAnimation();
 
+    // 检测是否为移动设备
     if (navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)) {
-        changeWindow(); // 移动端适配
+        adaptToMobile(); // 移动端适配
     }
 
     setTimeout(function () {
         // 如果播放器最初是可见的，则将其隐藏（原始逻辑）
-        // $('.fjsen-player').hide(); 
         // 在我们的案例中，它通过 CSS display:none 隐藏
     }, 1000);
 
-    initEvents();
+    // 初始化事件监听
+    initEventListeners();
 });
 
-function changeWindow() {
-    var sjhh = window.innerHeight;
-    var sjww = window.innerWidth;
+/**
+ * 适配移动端窗口大小
+ * 将横屏内容旋转以适应竖屏手机
+ */
+function adaptToMobile() {
+    var windowHeight = window.innerHeight;
 
     var loadingEl = document.querySelector('.loading');
     loadingEl.classList.add('main-phone');
-    loadingEl.style.width = sjhh + 'px';
+    loadingEl.style.width = windowHeight + 'px';
 
     var containerEl = document.querySelector('.container');
     containerEl.classList.add('main-phone2');
 
-    var plBtEl = document.querySelector('.pl_bt');
-    plBtEl.classList.add('pl_bt2');
+    var musicBtnEl = document.querySelector('.pl_bt');
+    musicBtnEl.classList.add('pl_bt2');
 
     setTimeout(function () {
         window.scrollTo(0, 0);
-        // $(".bg_01").scrollTop(0); // 原始代码中的选择器似乎有误（bg_01 通常是背景图片的类），但保留原意。
     }, 100);
 }
 
-function loading() {
+/**
+ * 开始加载页面的进度条动画
+ */
+function startLoadingAnimation() {
     var loadingEl = document.querySelector('.loading');
     loadingEl.style.display = 'block';
 
     var progressLine = document.querySelector(".progress");
-    var a = 0;
+    var progressValue = 0;
+    var maxProgress = 778; // 进度条最大宽度
 
-    function fn() {
-        if (parseInt(progressLine.offsetWidth) < 778) {
-            a += 20;
-            if (a > 778) a = 778;
-            progressLine.style.width = a + 'px';
-            requestAnimationFrame(fn);
+    function animateProgress() {
+        if (parseInt(progressLine.offsetWidth) < maxProgress) {
+            progressValue += 20;
+            if (progressValue > maxProgress) progressValue = maxProgress;
+            progressLine.style.width = progressValue + 'px';
+            requestAnimationFrame(animateProgress);
         } else {
+            // 加载完成，显示开始按钮
             document.querySelector(".p0_tips").style.display = 'block';
-            // $('.loading_ye').hide(); // HTML 中未找到
-            document.querySelector(".p0_loading") && (document.querySelector(".p0_loading").style.display = 'none');
+            // 隐藏加载中的提示（如果有）
+            var loadingText = document.querySelector(".p0_loading");
+            if (loadingText) loadingText.style.display = 'none';
         }
     }
-    requestAnimationFrame(fn);
+    requestAnimationFrame(animateProgress);
 }
 
-function start() {
-    audioAutoPlay(1);
+/**
+ * 进入主场景
+ * 隐藏加载页，显示主容器，播放音乐和视频
+ */
+function enterMainScene() {
+    toggleBackgroundMusic(true); // 强制播放音乐
     document.querySelector('.loading').style.display = 'none';
     document.querySelector('.container').style.display = 'block';
     document.querySelector('.pl_bt').style.display = 'block';
 
+    // 延时显示标题和提示
     setTimeout(function () {
-        fadeIn(document.querySelector(".img1"));
+        fadeInElement(document.querySelector(".img1"));
     }, 800);
     setTimeout(function () {
-        fadeIn(document.querySelector(".dianjijiaoshui0"));
+        fadeInElement(document.querySelector(".dianjijiaoshui0"));
     }, 2800);
 
-    // 播放所有视频
+    // 播放所有背景视频
     const videos = document.getElementsByClassName('bgVideo');
     for (let i = 0; i < videos.length; i++) {
-        videos[i].play().catch(e => console.log("Video play failed:", e));
+        videos[i].play().catch(e => console.log("视频播放失败:", e));
     }
 }
 
-function long(ll) {
-    document.querySelector('.container').style.width = ll + 'px';
+/**
+ * 更新容器宽度以实现横向滚动效果
+ * @param {number} width - 新的容器宽度
+ */
+function updateContainerWidth(width) {
+    document.querySelector('.container').style.width = width + 'px';
 }
 
-function audioAutoPlay(a) {
+/**
+ * 切换背景音乐播放状态
+ * @param {boolean|number} forcePlay - 1 或 true 强制播放，否则切换播放/暂停
+ */
+function toggleBackgroundMusic(forcePlay) {
     var audio = document.getElementById('music');
     if (!audio) {
         return;
     }
 
-    var yy1 = document.querySelector('.yy1');
-    var yy2 = document.querySelector('.yy2');
+    var iconOn = document.querySelector('.yy1'); // 播放图标
+    var iconOff = document.querySelector('.yy2'); // 暂停图标
 
-    if (a == 1) {
-        audio.play().catch(e => console.log("Audio play failed:", e));
-        yy1.style.display = 'block';
-        yy2.style.display = 'none';
+    if (forcePlay == 1 || forcePlay === true) {
+        audio.play().catch(e => console.log("音频播放失败:", e));
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
     } else if (audio.paused) {
-        audio.play().catch(e => console.log("Audio play failed:", e));
-        yy1.style.display = 'block';
-        yy2.style.display = 'none';
+        audio.play().catch(e => console.log("音频播放失败:", e));
+        iconOn.style.display = 'block';
+        iconOff.style.display = 'none';
     } else {
         audio.pause();
-        yy1.style.display = 'none';
-        yy2.style.display = 'block';
+        iconOn.style.display = 'none';
+        iconOff.style.display = 'block';
     }
 }
 
-function fadeIn(el) {
-    if (!el) return;
-    el.style.opacity = 0;
-    el.style.display = 'block';
+/**
+ * 元素淡入效果
+ * @param {HTMLElement} element - 需要淡入的元素
+ */
+function fadeInElement(element) {
+    if (!element) return;
+    element.style.opacity = 0;
+    element.style.display = 'block';
 
-    var last = +new Date();
+    var lastTime = +new Date();
     var tick = function () {
-        el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
-        last = +new Date();
-        if (+el.style.opacity < 1) {
+        element.style.opacity = +element.style.opacity + (new Date() - lastTime) / 400;
+        lastTime = +new Date();
+        if (+element.style.opacity < 1) {
             (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
         }
     };
     tick();
 }
 
-function initEvents() {
+/**
+ * 初始化所有交互事件
+ */
+function initEventListeners() {
     // 开始按钮
-    document.getElementById('startBtn').addEventListener('click', start);
+    document.getElementById('startBtn').addEventListener('click', enterMainScene);
 
     // 音乐按钮
-    document.getElementById('musicBtn').addEventListener('click', function () { audioAutoPlay(); });
-    document.getElementById('loadingMusicBtn').addEventListener('click', function () { audioAutoPlay(); });
+    document.getElementById('musicBtn').addEventListener('click', function () { toggleBackgroundMusic(); });
+    document.getElementById('loadingMusicBtn').addEventListener('click', function () { toggleBackgroundMusic(); });
 
     // 展开按钮 (第一部分 -> 第二部分)
     document.getElementById('expandBtn').addEventListener('click', function () {
-        long(17140);
+        updateContainerWidth(17140);
         document.querySelector('.part2').style.display = 'block';
         this.style.display = 'none';
         document.querySelector('.img6').style.display = 'block';
     });
 
-    // 第二部分弹窗
+    // 第二部分弹窗 (老物件)
     document.getElementById('p2PopupBtn').addEventListener('click', function () {
         document.getElementById('p2PopupImg').style.display = 'block';
     });
@@ -148,12 +178,12 @@ function initEvents() {
     // 浇水按钮 1 (第二部分 -> 第三部分)
     document.getElementById('waterBtn1').addEventListener('click', function () {
         this.style.opacity = '1';
-        long(26308);
+        updateContainerWidth(26308);
         document.querySelector('.part3').style.display = 'block';
         document.querySelector('.dianjijiaoshui').style.display = 'block';
     });
 
-    // 第三部分弹窗
+    // 第三部分弹窗 (三个弹窗)
     ['1', '2', '3'].forEach(function (num) {
         document.getElementById('p3PopupBtn' + num).addEventListener('click', function () {
             document.getElementById('p3PopupImg' + num).style.display = 'block';
@@ -167,7 +197,7 @@ function initEvents() {
     // 浇水按钮 2 (第三部分 -> 第四部分)
     document.getElementById('waterBtn2').addEventListener('click', function () {
         this.style.opacity = '1';
-        long(32525);
+        updateContainerWidth(32525);
         document.querySelector('.part4').style.display = 'block';
         document.querySelector('.dianjijiaoshui2').style.display = 'block';
     });
@@ -185,7 +215,7 @@ function initEvents() {
     // 浇水按钮 3 (第四部分 -> 第五部分 & 第六部分)
     document.getElementById('waterBtn3').addEventListener('click', function () {
         this.style.opacity = '1';
-        long(50259);
+        updateContainerWidth(50259);
         document.querySelector('.part5').style.display = 'block';
         document.querySelector('.part6').style.display = 'block';
         document.querySelector('.dianjijiaoshui3').style.display = 'block';
