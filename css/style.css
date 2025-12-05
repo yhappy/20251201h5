@@ -179,11 +179,96 @@ li {
 }
 
 .part2 {
-  background: url(../images/bg_02.jpg) no-repeat center top;
-  width: 8954px;
+  margin-left: -1px;
+  background: url(../images/p2.jpg) no-repeat center center;
+  background-size: contain;
+  width: 2003px;
   height: 750px;
   float: left;
-  margin-left: -2px;
+  position: relative;
+}
+
+.p2_text {
+  position: absolute;
+  left: 100px;
+  bottom: 150px;
+  z-index: 5;
+}
+
+.p2_text img {
+  width: 400px;
+  height: auto;
+}
+
+.p2_knowledge_title {
+  position: absolute;
+  right: 100px;
+  top: 100px;
+  z-index: 7;
+}
+
+.p2_knowledge_title img {
+  max-width: 350px;
+  height: auto;
+}
+
+.p2_click_view {
+  position: absolute;
+  right: 30px;
+  top: 170px;
+  z-index: 8;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p2_click_view img {
+  max-width: 140px;
+  height: auto;
+}
+
+.p2_knowledge_content {
+  position: absolute;
+  right: 80px;
+  top: 250px;
+  z-index: 7;
+}
+
+.p2_knowledge_content img {
+  max-width: 450px;
+  height: auto;
+}
+
+.p2_move_boxes {
+  position: absolute;
+  left: 300px;
+  bottom: 50px;
+  z-index: 6;
+}
+
+.p2_move_boxes img {
+  max-width: 180px;
+  height: auto;
+}
+
+.p2_move_boxes_gif {
+  position: absolute;
+  top: -2px;
+  left: -10px;
+  max-width: 180px;
+  height: auto;
+  z-index: 1;
+}
+
+.p2_click_goods {
+  position: absolute;
+  left: 550px;
+  bottom: 60px;
+  z-index: 6;
+}
+
+.p2_click_goods img {
+  max-width: 200px;
+  height: auto;
 }
 
 .part3 {
@@ -322,7 +407,7 @@ li {
 }
 
 .container {
-  width: 44351px;
+  width: 37600px;
   height: 750px;
   overflow: hidden;
 }

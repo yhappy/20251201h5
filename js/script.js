@@ -5,10 +5,10 @@ const CONFIG = {
     // 容器宽度配置
     WIDTHS: {
         INITIAL: 2278,
-        PART2: 11232,
-        PART3: 20400,
-        PART4: 26617,
-        PART5: 44284
+        PART2: 4281,
+        PART3: 13449,
+        PART4: 19666,
+        PART5: 37333
     },
     // 进度条配置
     PROGRESS: {
