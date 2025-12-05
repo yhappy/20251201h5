@@ -13,7 +13,7 @@ const CONFIG = {
     // 进度条配置
     PROGRESS: {
         MAX_PERCENT: 100,
-        INCREMENT: 2
+        INCREMENT: 0.5
     },
     // 动画延迟配置
     DELAYS: {
@@ -35,8 +35,7 @@ class H5App {
             container: document.querySelector('.container'),
             musicBtn: document.querySelector('.pl_bt'),
             progressLine: document.querySelector('.progress'),
-            tips: document.querySelector('.p0_tips'),
-            loadingText: document.querySelector('.p0_loading'),
+              loadingText: document.querySelector('.p0_loading'),
             audio: document.getElementById('music'),
             iconOn: document.querySelector('.yy1'),
             iconOff: document.querySelector('.yy2')
@@ -106,10 +105,17 @@ class H5App {
      * 加载完成回调
      */
     onLoadingComplete() {
-        this.dom.tips.style.display = 'block';
         if (this.dom.loadingText) {
             this.dom.loadingText.style.display = 'none';
         }
+
+        // 延迟1秒后显示点击开始按钮
+        setTimeout(() => {
+            const clickBtn = document.getElementById('loadingClickBtn');
+            if (clickBtn) {
+                this.fadeIn(clickBtn);
+            }
+        }, 1000);
     }
 
     /**
@@ -167,8 +173,10 @@ class H5App {
     /**
      * 元素淡入效果
      */
-    fadeIn(selector) {
-        const element = document.querySelector(selector);
+    fadeIn(selectorOrElement) {
+        const element = typeof selectorOrElement === 'string'
+            ? document.querySelector(selectorOrElement)
+            : selectorOrElement;
         if (!element) return;
 
         element.style.opacity = 0;
@@ -215,12 +223,11 @@ class H5App {
             if (el) el.addEventListener('click', handler.bind(this));
         };
 
-        // 开始按钮
-        onClick('startBtn', this.enterMainScene);
-
         // 音乐控制
         onClick('musicBtn', () => this.toggleMusic());
-        onClick('loadingMusicBtn', () => this.toggleMusic());
+
+        // 点击开始按钮
+        onClick('loadingClickBtn', this.enterMainScene);
 
         // 场景展开
         onClick('expandBtn', function () {
