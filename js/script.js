@@ -4,11 +4,11 @@
 const CONFIG = {
     // 容器宽度配置
     WIDTHS: {
-        INITIAL: 8186,
-        PART2: 17140,
-        PART3: 26308,
-        PART4: 32525,
-        PART5: 50259
+        INITIAL: 2278,
+        PART2: 11232,
+        PART3: 20400,
+        PART4: 26617,
+        PART5: 44284
     },
     // 进度条配置
     PROGRESS: {
@@ -33,12 +33,8 @@ class H5App {
         this.dom = {
             loading: document.querySelector('.loading'),
             container: document.querySelector('.container'),
-            musicBtn: document.querySelector('.pl_bt'),
             progressLine: document.querySelector('.progress'),
-              loadingText: document.querySelector('.p0_loading'),
-            audio: document.getElementById('music'),
-            iconOn: document.querySelector('.yy1'),
-            iconOff: document.querySelector('.yy2')
+            loadingText: document.querySelector('.p0_loading')
         };
 
         this.init();
@@ -53,8 +49,10 @@ class H5App {
         if (this.isMobileDevice()) {
             this.adaptToMobile();
         }
-
         this.bindEvents();
+
+        // 调试模式直接进入主场景
+        this.enterMainScene();
     }
 
     /**
@@ -73,7 +71,6 @@ class H5App {
         this.dom.loading.classList.add('main-phone');
         this.dom.loading.style.width = `${windowHeight}px`;
         this.dom.container.classList.add('main-phone2');
-        this.dom.musicBtn.classList.add('pl_bt2');
 
         setTimeout(() => window.scrollTo(0, 0), CONFIG.DELAYS.SCROLL_RESET);
     }
@@ -122,14 +119,8 @@ class H5App {
      * 进入主场景
      */
     enterMainScene() {
-        this.toggleMusic(true);
         this.dom.loading.style.display = 'none';
         this.dom.container.style.display = 'block';
-        this.dom.musicBtn.style.display = 'block';
-
-        // 延时显示元素
-        setTimeout(() => this.fadeIn('.img1'), CONFIG.DELAYS.FADE_IN_TITLE);
-        setTimeout(() => this.fadeIn('.dianjijiaoshui0'), CONFIG.DELAYS.FADE_IN_TIP);
 
         // 播放所有背景视频
         this.playAllVideos();
@@ -151,25 +142,7 @@ class H5App {
         this.dom.container.style.width = `${width}px`;
     }
 
-    /**
-     * 切换背景音乐
-     */
-    toggleMusic(forcePlay = null) {
-        if (!this.dom.audio) return;
-
-        const shouldPlay = forcePlay === true || (forcePlay === null && this.dom.audio.paused);
-
-        if (shouldPlay) {
-            this.dom.audio.play().catch(err => console.warn('音频播放失败:', err));
-            this.dom.iconOn.style.display = 'block';
-            this.dom.iconOff.style.display = 'none';
-        } else {
-            this.dom.audio.pause();
-            this.dom.iconOn.style.display = 'none';
-            this.dom.iconOff.style.display = 'block';
-        }
-    }
-
+    
     /**
      * 元素淡入效果
      */
@@ -223,20 +196,11 @@ class H5App {
             if (el) el.addEventListener('click', handler.bind(this));
         };
 
-        // 音乐控制
-        onClick('musicBtn', () => this.toggleMusic());
-
+        
         // 点击开始按钮
         onClick('loadingClickBtn', this.enterMainScene);
 
-        // 场景展开
-        onClick('expandBtn', function () {
-            this.setContainerWidth(CONFIG.WIDTHS.PART2);
-            this.show('.part2');
-            this.hide('#expandBtn');
-            this.show('.img6');
-        });
-
+        
         // 弹窗系统
         this.bindPopups();
 
@@ -282,28 +246,8 @@ class H5App {
      * 绑定浇水按钮事件
      */
     bindWaterButtons() {
-        const waterConfigs = [
-            { id: 'waterBtn1', width: CONFIG.WIDTHS.PART3, part: '.part3', tip: '.dianjijiaoshui' },
-            { id: 'waterBtn2', width: CONFIG.WIDTHS.PART4, part: '.part4', tip: '.dianjijiaoshui2' },
-            { id: 'waterBtn3', width: CONFIG.WIDTHS.PART5, part: '.part5', tip: '.dianjijiaoshui3' }
-        ];
-
-        waterConfigs.forEach(config => {
-            const btn = document.getElementById(config.id);
-            if (!btn) return;
-
-            btn.addEventListener('click', () => {
-                btn.style.opacity = '1';
-                this.setContainerWidth(config.width);
-                this.show(config.part);
-                this.show(config.tip);
-
-                // Part 5 特殊处理：同时显示 Part 6
-                if (config.part === '.part5') {
-                    this.show('.part6');
-                }
-            });
-        });
+        // 所有场景已初始显示，无需点击切换逻辑
+        // 保留此方法以维持代码结构，但功能已禁用
     }
 
     /**

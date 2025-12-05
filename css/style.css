@@ -87,11 +87,95 @@ li {
 }
 
 .part1 {
-  background: url(../images/bg_01.jpg) no-repeat center top;
-  width: 8186px;
+  background: url(../images/p1.jpg) no-repeat center center;
+  background-size: contain;
+  width: 2278px;
   height: 750px;
   float: left;
   position: relative;
+}
+
+.p1_text {
+  position: absolute;
+  left: 440px;
+  bottom: 150px;
+  z-index: 5;
+}
+
+.p1_text img {
+  width: 728px;
+  height: auto;
+}
+
+.p1_package {
+  position: absolute;
+  left: 1130px;
+  bottom: 35px;
+  z-index: 6;
+}
+
+.p1_package img {
+  max-width: 200px;
+  height: auto;
+}
+
+.p1_package_gif {
+  position: absolute;
+  top: -2px;
+  left: -17px;
+  max-width: 200px;
+  height: auto;
+  z-index: 1;
+}
+
+.p1_knowledge_title {
+  position: absolute;
+  right: 200px;
+  top: 100px;
+  z-index: 7;
+}
+
+.p1_knowledge_title img {
+  max-width: 406px;
+  height: auto;
+}
+
+.p1_click_view {
+  position: absolute;
+  right: 50px;
+  top: 170px;
+  z-index: 8;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p1_click_view img {
+  max-width: 160px;
+  height: auto;
+}
+
+.p1_knowledge_content {
+  position: absolute;
+  right: 140px;
+  top: 220px;
+  z-index: 7;
+}
+
+.p1_knowledge_content img {
+  max-width: 426px;
+  height: auto;
+}
+
+.p1_click_goods {
+  position: absolute;
+  left: 1270px;
+  bottom: 40px;
+  z-index: 6;
+}
+
+.p1_click_goods img {
+  max-width: 252px;
+  height: auto;
 }
 
 .part2 {
@@ -238,14 +322,14 @@ li {
 }
 
 .container {
-  width: 8186px;
+  width: 44351px;
   height: 750px;
   overflow: hidden;
 }
 
-/*8186px 初始*/
-/*8186+8954=17140*/
-/*17140+9168=26308*/
+/*750px 初始*/
+/*750+8954=9704*/
+/*9704+9168=18872*/
 /*26308+6217=32525*/
 /*32525+9667+8067=50,259*/
 
@@ -436,21 +520,6 @@ li {
   position: absolute;
   left: 48875px;
   top: 90px;
-}
-
-.pl_bt {
-  position: absolute;
-  z-index: 1005;
-  width: 55px;
-  height: 55px;
-  top: 30px;
-  right: 30px;
-}
-
-.pl_bt2 {
-  position: fixed;
-  bottom: 30px;
-  top: initial;
 }
 
 /*旋转*/
