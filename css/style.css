@@ -61,8 +61,6 @@ li {
   clear: both;
 }
 
-
-
 .main-phone {
   width: 1334px;
   height: 750px;
@@ -85,7 +83,8 @@ li {
   transform: rotate(90deg);
 }
 
-.part {}
+.part {
+}
 
 .part1 {
   background: url(../images/bg_01.jpg) no-repeat center top;
@@ -135,9 +134,6 @@ li {
   margin-left: -2px;
 }
 
-
-
-
 /* 提示设置 */
 .tips {
   position: fixed;
@@ -175,7 +171,7 @@ li {
 }
 
 .progress_bg {
-  background: url("../images/line_bg.png") no-repeat center top;
+  background: url("../images/加载页进度条背景.png") no-repeat center top;
   width: 778px;
   height: 21px;
   position: absolute;
@@ -199,7 +195,7 @@ li {
 .progress {
   width: 0px;
   height: 21px;
-  background: url("../images/line.png") no-repeat center top;
+  background: url("../images/加载页进度条.png") no-repeat center top;
   background-size: cover;
   overflow: hidden;
 }
@@ -209,9 +205,6 @@ li {
   right: 100px;
   top: 540px;
 }
-
-
-
 
 .container {
   width: 8186px;
@@ -397,12 +390,10 @@ li {
   left: 29665px;
   padding: 15px;
   border-radius: 15px;
-  background: #FFF;
+  background: #fff;
   z-index: 5;
   display: none;
 }
-
-
 
 .wei1 {
   position: absolute;
@@ -415,7 +406,6 @@ li {
   left: 48875px;
   top: 90px;
 }
-
 
 .pl_bt {
   position: absolute;
@@ -432,25 +422,23 @@ li {
   top: initial;
 }
 
-
 /*旋转*/
 .rotate {
   -webkit-animation: rotating 1.2s linear infinite;
   -moz-animation: rotating 1.2s linear infinite;
   -o-animation: rotating 1.2s linear infinite;
-  animation: rotating 1.2s linear infinite
+  animation: rotating 1.2s linear infinite;
 }
 
 @keyframes rotating {
   from {
-    transform: rotate(0)
+    transform: rotate(0);
   }
 
   to {
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
-
 
 /* 放大缩小 */
 @keyframes scale1 {
@@ -470,7 +458,6 @@ li {
 .scale1 {
   animation: scale1 3s infinite linear;
 }
-
 
 /* 放大缩小 */
 @keyframes scale2 {
@@ -518,10 +505,11 @@ li {
   }
 }
 
-
 .slide-in-elliptic-top-fwd {
-  -webkit-animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(.25, .46, .45, .94) both;
-  animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(.25, .46, .45, .94) both
+  -webkit-animation: slide-in-elliptic-top-fwd 1.7s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
 }
 
 @-webkit-keyframes slide-in-elliptic-top-fwd {
@@ -530,7 +518,7 @@ li {
     transform: translateY(-600px) rotateX(-30deg) scale(0);
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
@@ -538,7 +526,7 @@ li {
     transform: translateY(0) rotateX(0) scale(1);
     -webkit-transform-origin: 50% 1400px;
     transform-origin: 50% 1400px;
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -548,7 +536,7 @@ li {
     transform: translateY(-600px) rotateX(-30deg) scale(0);
     -webkit-transform-origin: 50% 100%;
     transform-origin: 50% 100%;
-    opacity: 0
+    opacity: 0;
   }
 
   100% {
@@ -556,10 +544,9 @@ li {
     transform: translateY(0) rotateX(0) scale(1);
     -webkit-transform-origin: 50% 1400px;
     transform-origin: 50% 1400px;
-    opacity: 1
+    opacity: 1;
   }
 }
-
 
 /* 向左滑动动画 */
 .slideLeft {
@@ -578,7 +565,6 @@ li {
     /* 向左滑动100%宽度 */
   }
 }
-
 
 /* 定义 tada 动画关键帧 */
 @keyframes tada {
@@ -612,13 +598,12 @@ li {
 /* 应用 tada 动画的类 */
 .tada {
   /* 动画名称、时长、速度曲线、重复次数 */
-  animation: tada 1s cubic-bezier(.36, .07, .19, .97) both;
+  animation: tada 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   /* 可选：添加延迟 */
   /* animation-delay: 0.5s; */
   /* 可选：无限循环 */
   animation-iteration-count: infinite;
 }
-
 
 .cloud-text {
   animation: cloudFloat 8s ease-in-out infinite;
