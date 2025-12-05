@@ -12,8 +12,8 @@ const CONFIG = {
     },
     // 进度条配置
     PROGRESS: {
-        MAX_WIDTH: 778,
-        INCREMENT: 20
+        MAX_PERCENT: 100,
+        INCREMENT: 2
     },
     // 动画延迟配置
     DELAYS: {
@@ -84,17 +84,15 @@ class H5App {
      */
     startLoadingAnimation() {
         this.dom.loading.style.display = 'block';
-        let progressValue = 0;
+        let progressPercent = 0;
 
         const animate = () => {
-            const currentWidth = parseInt(this.dom.progressLine.offsetWidth);
-
-            if (currentWidth < CONFIG.PROGRESS.MAX_WIDTH) {
-                progressValue = Math.min(
-                    progressValue + CONFIG.PROGRESS.INCREMENT,
-                    CONFIG.PROGRESS.MAX_WIDTH
+            if (progressPercent < CONFIG.PROGRESS.MAX_PERCENT) {
+                progressPercent = Math.min(
+                    progressPercent + CONFIG.PROGRESS.INCREMENT,
+                    CONFIG.PROGRESS.MAX_PERCENT
                 );
-                this.dom.progressLine.style.width = `${progressValue}px`;
+                this.dom.progressLine.style.width = `${progressPercent}%`;
                 requestAnimationFrame(animate);
             } else {
                 this.onLoadingComplete();

@@ -171,33 +171,40 @@ li {
 }
 
 .progress_bg {
-  background: url("../images/加载页进度条背景.png") no-repeat center top;
-  width: 778px;
-  height: 21px;
+  width: 803px;
+  height: 23px;
   position: absolute;
   top: 428px;
   left: 50%;
-  margin-left: -389px;
+  margin-left: -401.5px;
   transform-origin: 50% 50%;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.progress_box {
-  width: 778px;
-  height: 21px;
-  border-radius: 7.5px;
+.progress_bg::before {
+  content: "";
   position: absolute;
-  overflow: hidden;
-  left: 0px;
-  top: 0px;
-  transform-origin: 50% 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../images/加载页进度条边框.png") no-repeat center top;
+  background-size: 100% 100%;
+  border-radius: 5px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .progress {
-  width: 0px;
-  height: 21px;
-  background: url("../images/加载页进度条.png") no-repeat center top;
-  background-size: cover;
-  overflow: hidden;
+  width: 0%;
+  height: 100%;
+  background: url("../images/加载页进度条.png") repeat-x center top;
+  background-size: auto 100%;
+  transition: width 0.3s ease;
+  border-radius: 5px;
+  position: relative;
+  z-index: 0;
 }
 
 .loading_music {
