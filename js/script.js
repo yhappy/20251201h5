@@ -200,7 +200,10 @@ class H5App {
         // 点击开始按钮
         onClick('loadingClickBtn', this.enterMainScene);
 
-        
+        // p1和p2点击货物交互
+        this.bindP1GoodsInteraction();
+        this.bindP2GoodsInteraction();
+
         // 弹窗系统
         this.bindPopups();
 
@@ -209,6 +212,46 @@ class H5App {
 
         // 视频弹窗
         this.bindVideoPopup();
+    }
+
+    /**
+     * 绑定p1点击货物交互
+     */
+    bindP1GoodsInteraction() {
+        const clickGoodsBtn = document.getElementById('p1ClickGoodsBtn');
+        const packageImg = document.querySelector('.p1_package_img');
+        const packageGif = document.querySelector('.p1_package_gif');
+
+        if (clickGoodsBtn) {
+            clickGoodsBtn.addEventListener('click', () => {
+                // 隐藏点击货物按钮
+                clickGoodsBtn.style.display = 'none';
+
+                // 隐藏静态装箱图片，显示装箱动画
+                if (packageImg) packageImg.style.display = 'none';
+                if (packageGif) packageGif.style.display = 'block';
+            });
+        }
+    }
+
+    /**
+     * 绑定p2点击货物交互
+     */
+    bindP2GoodsInteraction() {
+        const clickGoodsBtn = document.getElementById('p2ClickGoodsBtn');
+        const moveBoxesImg = document.querySelector('.p2_move_boxes_img');
+        const moveBoxesGif = document.querySelector('.p2_move_boxes_gif');
+
+        if (clickGoodsBtn) {
+            clickGoodsBtn.addEventListener('click', () => {
+                // 隐藏点击货物按钮
+                clickGoodsBtn.style.display = 'none';
+
+                // 隐藏静态搬箱子图片，显示搬箱子动画
+                if (moveBoxesImg) moveBoxesImg.style.display = 'none';
+                if (moveBoxesGif) moveBoxesGif.style.display = 'block';
+            });
+        }
     }
 
     /**

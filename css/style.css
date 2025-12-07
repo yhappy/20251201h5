@@ -110,7 +110,7 @@ li {
 .p1_package {
   position: absolute;
   left: 1130px;
-  bottom: 35px;
+  bottom: 235px;
   z-index: 6;
 }
 
@@ -119,13 +119,20 @@ li {
   height: auto;
 }
 
-.p1_package_gif {
+.p1_package .p1_package_img {
   position: absolute;
-  top: -2px;
-  left: -17px;
-  max-width: 200px;
-  height: auto;
+  top: 8px;
+  left: 19px;
   z-index: 1;
+}
+
+.p1_package .p1_package_gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 205px;
+  height: auto;
+  z-index: 2;
 }
 
 .p1_knowledge_title {
@@ -241,7 +248,7 @@ li {
 .p2_move_boxes {
   position: absolute;
   left: 1060px;
-  bottom: -90px;
+  bottom: 270px;
   z-index: 6;
 }
 
@@ -250,13 +257,20 @@ li {
   height: auto;
 }
 
-.p2_move_boxes_gif {
+.p2_move_boxes .p2_move_boxes_img {
   position: absolute;
-  top: -10px;
-  left: -55px;
-  width: 575px !important;
-  height: auto;
+  top: 0;
+  left: 0;
   z-index: 1;
+}
+
+.p2_move_boxes .p2_move_boxes_gif {
+  position: absolute;
+  top: -12px;
+  left: -60px;
+  width: 582px !important;
+  height: auto;
+  z-index: 2;
 }
 
 .p2_click_goods {
