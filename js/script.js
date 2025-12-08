@@ -122,16 +122,16 @@ class H5App {
         this.dom.loading.style.display = 'none';
         this.dom.container.style.display = 'block';
 
-        // 播放所有背景视频
-        this.playAllVideos();
+        // 暂停所有背景视频
+        this.pauseAllVideos();
     }
 
     /**
-     * 播放所有背景视频
+     * 暂停所有背景视频
      */
-    playAllVideos() {
+    pauseAllVideos() {
         Array.from(document.getElementsByClassName('bgVideo')).forEach(video => {
-            video.play().catch(err => console.warn('视频播放失败:', err));
+            video.pause();
         });
     }
 
@@ -327,14 +327,23 @@ class H5App {
      */
     bindP3CamelInteraction() {
         const clickCamelBtn = document.getElementById('p3ClickCamelBtn');
+        const p3Video = document.querySelector('.p3_video');
+        const p3VideoElement = document.querySelector('.p3_video video');
 
         if (clickCamelBtn) {
             clickCamelBtn.addEventListener('click', () => {
                 // 隐藏点击骆驼按钮
                 clickCamelBtn.style.display = 'none';
 
-                // 这里可以添加骆驼相关的动画或效果
-                console.log('p3骆驼被点击了！');
+                // 显示视频容器
+                if (p3Video) {
+                    p3Video.style.display = 'block';
+                }
+
+                // 开始播放视频
+                if (p3VideoElement) {
+                    p3VideoElement.play().catch(err => console.warn('视频播放失败:', err));
+                }
             });
         }
     }
