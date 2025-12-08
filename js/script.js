@@ -204,9 +204,13 @@ class H5App {
         this.bindP1GoodsInteraction();
         this.bindP2GoodsInteraction();
 
-        // p1和p2点击查看交互
+        // p1、p2和p3点击查看交互
         this.bindP1ClickViewInteraction();
         this.bindP2ClickViewInteraction();
+        this.bindP3ClickViewInteraction();
+
+        // p3点击骆驼交互
+        this.bindP3CamelInteraction();
 
         // 弹窗系统
         this.bindPopups();
@@ -294,6 +298,43 @@ class H5App {
 
                 // 隐藏点击查看按钮
                 clickViewBtn.style.display = 'none';
+            });
+        }
+    }
+
+  /**
+     * 绑定p3点击查看交互
+     */
+    bindP3ClickViewInteraction() {
+        const clickViewBtn = document.getElementById('p3ClickViewBtn');
+        const knowledgeContent = document.querySelector('.p3_knowledge_content');
+
+        if (clickViewBtn) {
+            clickViewBtn.addEventListener('click', () => {
+                // 只显示小知识内容，标题固定显示
+                if (knowledgeContent) {
+                    knowledgeContent.classList.add('show');
+                }
+
+                // 隐藏点击查看按钮
+                clickViewBtn.style.display = 'none';
+            });
+        }
+    }
+
+  /**
+     * 绑定p3点击骆驼交互
+     */
+    bindP3CamelInteraction() {
+        const clickCamelBtn = document.getElementById('p3ClickCamelBtn');
+
+        if (clickCamelBtn) {
+            clickCamelBtn.addEventListener('click', () => {
+                // 隐藏点击骆驼按钮
+                clickCamelBtn.style.display = 'none';
+
+                // 这里可以添加骆驼相关的动画或效果
+                console.log('p3骆驼被点击了！');
             });
         }
     }

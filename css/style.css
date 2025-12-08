@@ -150,15 +150,15 @@ li {
 
 .p1_click_view {
   position: absolute;
-  right: 50px;
-  top: 170px;
+  right: 20px;
+  top: 130px;
   z-index: 8;
   cursor: pointer;
   animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .p1_click_view img {
-  max-width: 160px;
+  width: 227px;
   height: auto;
 }
 
@@ -233,15 +233,15 @@ li {
 
 .p2_click_view {
   position: absolute;
-  left: 500px;
-  top: 350px;
+  left: 470px;
+  top: 320px;
   z-index: 8;
   cursor: pointer;
   animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .p2_click_view img {
-  max-width: 160px;
+  width: 227px;
   height: auto;
 }
 
@@ -308,11 +308,86 @@ li {
 }
 
 .part3 {
-  background: url(../images/bg_03.jpg) no-repeat center top;
-  width: 9168px;
+  background: url(../images/p3古道.jpg) no-repeat center center;
+  background-size: contain;
+  width: 2617px;
   height: 750px;
   float: left;
   margin-left: -2px;
+  position: relative;
+}
+
+.p3_text {
+  position: absolute;
+  left: 50px;
+  bottom: 130px;
+  z-index: 5;
+}
+
+.p3_text img {
+  width: 841px;
+  height: auto;
+}
+
+.p3_knowledge_title {
+  position: absolute;
+  right: 300px;
+  top: 60px;
+  z-index: 7;
+  opacity: 1;
+}
+
+.p3_knowledge_title img {
+  width: 406px;
+  height: auto;
+}
+
+.p3_knowledge_content {
+  position: absolute;
+  right: 80px;
+  top: 180px;
+  z-index: 7;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease-out;
+}
+
+.p3_knowledge_content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p3_knowledge_content img {
+  width: 592px;
+  height: auto;
+}
+
+.p3_click_view {
+  position: absolute;
+  right: 130px;
+  top: 80px;
+  z-index: 8;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p3_click_view img {
+  width: 227px;
+  height: auto;
+}
+
+.p3_click_camel {
+  position: absolute;
+  left: 1800px;
+  bottom: 200px;
+  z-index: 6;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p3_click_camel img {
+  width: 228px;
+  height: auto;
 }
 
 .part4 {
@@ -390,7 +465,7 @@ li {
 }
 
 .loading_click img {
-  max-width: 450px;
+  width: 227px;
   height: auto;
   animation: pulse-scale 2s ease-in-out infinite;
 }
@@ -443,7 +518,7 @@ li {
 }
 
 .container {
-  width: 37600px;
+  width: 45897px;
   height: 750px;
   overflow: hidden;
 }
