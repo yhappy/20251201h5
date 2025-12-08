@@ -204,13 +204,15 @@ class H5App {
         this.bindP1GoodsInteraction();
         this.bindP2GoodsInteraction();
 
-        // p1、p2和p3点击查看交互
+        // p1、p2、p3和p4点击查看交互
         this.bindP1ClickViewInteraction();
         this.bindP2ClickViewInteraction();
         this.bindP3ClickViewInteraction();
+        this.bindP4ClickViewInteraction();
 
-        // p3点击骆驼交互
+        // p3点击骆驼和p4点击商人交互
         this.bindP3CamelInteraction();
+        this.bindP4MerchantInteraction();
 
         // 弹窗系统
         this.bindPopups();
@@ -344,6 +346,45 @@ class H5App {
                 if (p3VideoElement) {
                     p3VideoElement.play().catch(err => console.warn('视频播放失败:', err));
                 }
+            });
+        }
+    }
+
+  /**
+     * 绑定p4点击查看交互
+     */
+    bindP4ClickViewInteraction() {
+        const clickViewBtn = document.getElementById('p4ClickViewBtn');
+        const knowledgeContent = document.querySelector('.p4_knowledge_content');
+
+        if (clickViewBtn) {
+            clickViewBtn.addEventListener('click', () => {
+                // 只显示小知识内容，标题固定显示
+                if (knowledgeContent) {
+                    knowledgeContent.classList.add('show');
+                }
+
+                // 隐藏点击查看按钮
+                clickViewBtn.style.display = 'none';
+            });
+        }
+    }
+
+  /**
+     * 绑定p4点击商人交互
+     */
+    bindP4MerchantInteraction() {
+        const clickMerchantBtn = document.getElementById('p4ClickMerchantBtn');
+        const merchantImg = document.querySelector('.p4_click_merchant_img');
+        const checkTeaImg = document.querySelector('.p4_check_tea_img');
+        const checkTeaGif = document.querySelector('.p4_check_tea_gif');
+
+        if (clickMerchantBtn) {
+            clickMerchantBtn.addEventListener('click', () => {
+                // 隐藏点击商人按钮，显示查看茶叶动画
+                if (merchantImg) merchantImg.style.display = 'none';
+                if (checkTeaImg) checkTeaImg.style.display = 'none';
+                if (checkTeaGif) checkTeaGif.style.display = 'block';
             });
         }
     }

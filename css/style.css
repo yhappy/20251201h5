@@ -205,7 +205,7 @@ li {
   height: 750px;
   float: left;
   position: relative;
-  /* display: none; */
+  display: none;
 }
 
 .p2_text {
@@ -318,6 +318,7 @@ li {
   float: left;
   margin-left: -2px;
   position: relative;
+  display: none;
 }
 
 .p3_mask {
@@ -422,11 +423,110 @@ li {
 }
 
 .part4 {
-  background: url(../images/bg_04.jpg) no-repeat center top;
-  width: 6217px;
+  background: url(../images/p4.jpg) no-repeat center center;
+  background-size: contain;
+  width: 2729px;
   height: 750px;
   float: left;
   margin-left: -2px;
+  position: relative;
+}
+
+.p4_text {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  z-index: 5;
+}
+
+.p4_text img {
+  width: 870px;
+  height: auto;
+}
+
+.p4_knowledge_title {
+  position: absolute;
+  right: 450px;
+  top: 100px;
+  z-index: 7;
+  opacity: 1;
+}
+
+.p4_knowledge_title img {
+  width: 406px;
+  height: auto;
+}
+
+.p4_knowledge_content {
+  position: absolute;
+  right: 220px;
+  top: 220px;
+  z-index: 7;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease-out;
+}
+
+.p4_knowledge_content.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p4_knowledge_content img {
+  width: 592px;
+  height: auto;
+}
+
+.p4_click_view {
+  position: absolute;
+  right: 280px;
+  top: 120px;
+  z-index: 8;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p4_click_view img {
+  width: 227px;
+  height: auto;
+}
+
+.p4_click_merchant {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 6;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p4_click_merchant img {
+  height: auto;
+}
+
+.p4_click_merchant .p4_click_merchant_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 370px;
+}
+
+.p4_click_merchant .p4_check_tea_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 737px;
+}
+
+.p4_click_merchant .p4_check_tea_gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 737px;
 }
 
 .part5 {
@@ -549,7 +649,7 @@ li {
 }
 
 .container {
-  width: 45897px;
+  width: 48514px;
   height: 750px;
   overflow: hidden;
 }
