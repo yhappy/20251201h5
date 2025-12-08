@@ -204,15 +204,17 @@ class H5App {
         this.bindP1GoodsInteraction();
         this.bindP2GoodsInteraction();
 
-        // p1、p2、p3和p4点击查看交互
+        // p1、p2、p3、p4和p5点击查看交互
         this.bindP1ClickViewInteraction();
         this.bindP2ClickViewInteraction();
         this.bindP3ClickViewInteraction();
         this.bindP4ClickViewInteraction();
+        this.bindP5ClickViewInteraction();
 
-        // p3点击骆驼和p4点击商人交互
+        // p3点击骆驼、p4点击商人和p5点击茶壶交互
         this.bindP3CamelInteraction();
         this.bindP4MerchantInteraction();
+        this.bindP5TeapotInteraction();
 
         // 弹窗系统
         this.bindPopups();
@@ -388,6 +390,46 @@ class H5App {
                 if (merchantImg) merchantImg.style.display = 'none';
                 if (checkTeaImg) checkTeaImg.style.display = 'none';
                 if (checkTeaGif) checkTeaGif.style.display = 'block';
+            });
+        }
+    }
+
+  /**
+     * 绑定p5点击查看交互
+     */
+    bindP5ClickViewInteraction() {
+        const clickViewBtn = document.getElementById('p5ClickViewBtn');
+        const knowledgeContent = document.querySelector('.p5_knowledge_content');
+
+        if (clickViewBtn) {
+            clickViewBtn.addEventListener('click', () => {
+                // 只显示小知识内容，标题固定显示
+                if (knowledgeContent) {
+                    knowledgeContent.classList.add('show');
+                }
+
+                // 隐藏点击查看按钮
+                clickViewBtn.style.display = 'none';
+            });
+        }
+    }
+
+  /**
+     * 绑定p5点击茶壶交互
+     */
+    bindP5TeapotInteraction() {
+        const clickGoodsBtn = document.getElementById('p5ClickTeapotBtn');
+        const teaImg = document.querySelector('.p5_tea_img');
+        const teaGif = document.querySelector('.p5_tea_gif');
+
+        if (clickGoodsBtn) {
+            clickGoodsBtn.addEventListener('click', () => {
+                // 隐藏点击茶壶按钮
+                clickGoodsBtn.style.display = 'none';
+
+                // 隐藏静态茶壶图片，显示茶壶动画
+                if (teaImg) teaImg.style.display = 'none';
+                if (teaGif) teaGif.style.display = 'block';
             });
         }
     }
