@@ -493,12 +493,10 @@ li {
 
 .p4_click_merchant {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: 900px;
+  top: 280px;
   z-index: 6;
   cursor: pointer;
-  animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .p4_click_merchant img {
@@ -523,10 +521,24 @@ li {
 
 .p4_click_merchant .p4_check_tea_gif {
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 0;
   z-index: 3;
   width: 737px;
+}
+
+.p4_click_goods {
+  position: absolute;
+  left: 1300px;
+  top: 420px;
+  z-index: 6;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
+}
+
+.p4_click_goods img {
+  width: 370px;
+  height: auto;
 }
 
 .part5 {

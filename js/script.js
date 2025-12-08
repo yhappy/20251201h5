@@ -374,14 +374,17 @@ class H5App {
      * 绑定p4点击商人交互
      */
     bindP4MerchantInteraction() {
-        const clickMerchantBtn = document.getElementById('p4ClickMerchantBtn');
+        const clickGoodsBtn = document.getElementById('p4ClickMerchantBtn');
         const merchantImg = document.querySelector('.p4_click_merchant_img');
         const checkTeaImg = document.querySelector('.p4_check_tea_img');
         const checkTeaGif = document.querySelector('.p4_check_tea_gif');
 
-        if (clickMerchantBtn) {
-            clickMerchantBtn.addEventListener('click', () => {
-                // 隐藏点击商人按钮，显示查看茶叶动画
+        if (clickGoodsBtn) {
+            clickGoodsBtn.addEventListener('click', () => {
+                // 隐藏点击商人按钮
+                clickGoodsBtn.style.display = 'none';
+
+                // 隐藏静态商人图片，显示查看茶叶动画
                 if (merchantImg) merchantImg.style.display = 'none';
                 if (checkTeaImg) checkTeaImg.style.display = 'none';
                 if (checkTeaGif) checkTeaGif.style.display = 'block';
