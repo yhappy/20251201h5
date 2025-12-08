@@ -140,6 +140,7 @@ li {
   right: 200px;
   top: 100px;
   z-index: 7;
+  opacity: 1;
 }
 
 .p1_knowledge_title img {
@@ -166,6 +167,14 @@ li {
   right: 140px;
   top: 220px;
   z-index: 7;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease-out;
+}
+
+.p1_knowledge_content.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .p1_knowledge_content img {
@@ -178,6 +187,8 @@ li {
   left: 1270px;
   bottom: 40px;
   z-index: 6;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .p1_click_goods img {
@@ -212,6 +223,7 @@ li {
   left: 120px;
   top: 300px;
   z-index: 7;
+  opacity: 1;
 }
 
 .p2_knowledge_title img {
@@ -238,6 +250,14 @@ li {
   left: 150px;
   top: 420px;
   z-index: 7;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease-out;
+}
+
+.p2_knowledge_content.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .p2_knowledge_content img {
@@ -278,6 +298,8 @@ li {
   left: 1200px;
   bottom: 60px;
   z-index: 6;
+  cursor: pointer;
+  animation: pulse-scale 2s ease-in-out infinite;
 }
 
 .p2_click_goods img {
@@ -705,8 +727,10 @@ li {
 }
 
 .slide-in-elliptic-top-fwd {
-  -webkit-animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  -webkit-animation: slide-in-elliptic-top-fwd 1.7s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-elliptic-top-fwd 1.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
 }
 
 @-webkit-keyframes slide-in-elliptic-top-fwd {

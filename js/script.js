@@ -204,6 +204,10 @@ class H5App {
         this.bindP1GoodsInteraction();
         this.bindP2GoodsInteraction();
 
+        // p1和p2点击查看交互
+        this.bindP1ClickViewInteraction();
+        this.bindP2ClickViewInteraction();
+
         // 弹窗系统
         this.bindPopups();
 
@@ -250,6 +254,46 @@ class H5App {
                 // 隐藏静态搬箱子图片，显示搬箱子动画
                 if (moveBoxesImg) moveBoxesImg.style.display = 'none';
                 if (moveBoxesGif) moveBoxesGif.style.display = 'block';
+            });
+        }
+    }
+
+    /**
+     * 绑定p1点击查看交互
+     */
+    bindP1ClickViewInteraction() {
+        const clickViewBtn = document.getElementById('p1ClickViewBtn');
+        const knowledgeContent = document.querySelector('.p1_knowledge_content');
+
+        if (clickViewBtn) {
+            clickViewBtn.addEventListener('click', () => {
+                // 只显示小知识内容，标题固定显示
+                if (knowledgeContent) {
+                    knowledgeContent.classList.add('show');
+                }
+
+                // 隐藏点击查看按钮
+                clickViewBtn.style.display = 'none';
+            });
+        }
+    }
+
+    /**
+     * 绑定p2点击查看交互
+     */
+    bindP2ClickViewInteraction() {
+        const clickViewBtn = document.getElementById('p2ClickViewBtn');
+        const knowledgeContent = document.querySelector('.p2_knowledge_content');
+
+        if (clickViewBtn) {
+            clickViewBtn.addEventListener('click', () => {
+                // 只显示小知识内容，标题固定显示
+                if (knowledgeContent) {
+                    knowledgeContent.classList.add('show');
+                }
+
+                // 隐藏点击查看按钮
+                clickViewBtn.style.display = 'none';
             });
         }
     }
