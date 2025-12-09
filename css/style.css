@@ -83,9 +83,6 @@ li {
   transform: rotate(90deg);
 }
 
-.part {
-}
-
 .part1 {
   background: url(../images/p1.jpg) no-repeat center center;
   background-size: contain;
@@ -93,7 +90,6 @@ li {
   height: 750px;
   float: left;
   position: relative;
-  display: none;
 }
 
 .p1_text {
@@ -205,7 +201,6 @@ li {
   height: 750px;
   float: left;
   position: relative;
-  display: none;
 }
 
 .p2_text {
@@ -318,7 +313,6 @@ li {
   float: left;
   margin-left: -2px;
   position: relative;
-  display: none;
 }
 
 .p3_mask {
@@ -430,7 +424,6 @@ li {
   float: left;
   margin-left: -2px;
   position: relative;
-  display: none;
 }
 
 .p4_text {
@@ -550,7 +543,6 @@ li {
   float: left;
   margin-left: -2px;
   position: relative;
-  display: none;
 }
 
 .p5_text {
@@ -734,11 +726,26 @@ li {
   object-fit: contain;
 }
 
+.p6_share_tip {
+  position: absolute;
+  width: 240px;
+  text-align: center;
+  top: 50%;
+  transform: translateY(37vh);
+  color: white;
+  font-size: 28px;
+  font-family: "微软雅黑", sans-serif;
+  text-align: center;
+  border-radius: 20px;
+  z-index: 1000;
+  opacity: 0.6;
+}
+
 .p6_close_poster {
   position: absolute;
-  top: 160px;
-  left: 50%;
   transform: translateX(-50%);
+  top: 50%;
+  transform: translateY(-41vh);
   cursor: pointer;
   z-index: 1001;
   transition: transform 0.3s ease;
@@ -857,7 +864,7 @@ li {
 }
 
 .container {
-  width: 45820px;
+  width: 15000px;
   height: 750px;
   overflow: hidden;
 }
