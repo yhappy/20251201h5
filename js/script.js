@@ -216,6 +216,9 @@ class H5App {
         this.bindP4MerchantInteraction();
         this.bindP5TeapotInteraction();
 
+        // p6点击转发交互
+        this.bindP6ShareInteraction();
+
         // 弹窗系统
         this.bindPopups();
 
@@ -430,6 +433,28 @@ class H5App {
                 // 隐藏静态茶壶图片，显示茶壶动画
                 if (teaImg) teaImg.style.display = 'none';
                 if (teaGif) teaGif.style.display = 'block';
+            });
+        }
+    }
+
+  /**
+     * 绑定p6点击转发交互
+     */
+    bindP6ShareInteraction() {
+        const clickShareBtn = document.getElementById('p6ClickShareBtn');
+
+        if (clickShareBtn) {
+            clickShareBtn.addEventListener('click', () => {
+                // 隐藏点击转发按钮
+                clickShareBtn.style.display = 'none';
+
+                // 这里可以添加转发相关的功能
+                console.log('p6转发按钮被点击了！');
+
+                // 可以添加转发逻辑，如：
+                // - 显示分享选项
+                // - 复制链接到剪贴板
+                // - 调用系统分享API等
             });
         }
     }
