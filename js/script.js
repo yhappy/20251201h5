@@ -142,7 +142,7 @@ class H5App {
         this.dom.container.style.width = `${width}px`;
     }
 
-    
+
     /**
      * 元素淡入效果
      */
@@ -196,7 +196,7 @@ class H5App {
             if (el) el.addEventListener('click', handler.bind(this));
         };
 
-        
+
         // 点击开始按钮
         onClick('loadingClickBtn', this.enterMainScene);
 
@@ -309,9 +309,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p3点击查看交互
-     */
+    /**
+       * 绑定p3点击查看交互
+       */
     bindP3ClickViewInteraction() {
         const clickViewBtn = document.getElementById('p3ClickViewBtn');
         const knowledgeContent = document.querySelector('.p3_knowledge_content');
@@ -329,9 +329,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p3点击骆驼交互
-     */
+    /**
+       * 绑定p3点击骆驼交互
+       */
     bindP3CamelInteraction() {
         const clickCamelBtn = document.getElementById('p3ClickCamelBtn');
         const p3Video = document.querySelector('.p3_video');
@@ -355,9 +355,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p4点击查看交互
-     */
+    /**
+       * 绑定p4点击查看交互
+       */
     bindP4ClickViewInteraction() {
         const clickViewBtn = document.getElementById('p4ClickViewBtn');
         const knowledgeContent = document.querySelector('.p4_knowledge_content');
@@ -375,9 +375,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p4点击商人交互
-     */
+    /**
+       * 绑定p4点击商人交互
+       */
     bindP4MerchantInteraction() {
         const clickGoodsBtn = document.getElementById('p4ClickMerchantBtn');
         const merchantImg = document.querySelector('.p4_click_merchant_img');
@@ -397,9 +397,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p5点击查看交互
-     */
+    /**
+       * 绑定p5点击查看交互
+       */
     bindP5ClickViewInteraction() {
         const clickViewBtn = document.getElementById('p5ClickViewBtn');
         const knowledgeContent = document.querySelector('.p5_knowledge_content');
@@ -417,9 +417,9 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p5点击茶壶交互
-     */
+    /**
+       * 绑定p5点击茶壶交互
+       */
     bindP5TeapotInteraction() {
         const clickGoodsBtn = document.getElementById('p5ClickTeapotBtn');
         const teaImg = document.querySelector('.p5_tea_img');
@@ -437,24 +437,42 @@ class H5App {
         }
     }
 
-  /**
-     * 绑定p6点击转发交互
-     */
+    /**
+       * 绑定p6点击转发交互
+       */
     bindP6ShareInteraction() {
         const clickShareBtn = document.getElementById('p6ClickShareBtn');
+        const sharePoster = document.getElementById('p6SharePoster');
+        const closePosterBtn = document.getElementById('p6ClosePosterBtn');
 
         if (clickShareBtn) {
             clickShareBtn.addEventListener('click', () => {
                 // 隐藏点击转发按钮
-                clickShareBtn.style.display = 'none';
+                // clickShareBtn.style.display = 'none';
 
-                // 这里可以添加转发相关的功能
-                console.log('p6转发按钮被点击了！');
+                // 显示分享海报
+                if (sharePoster) {
+                    sharePoster.style.display = 'flex';
+                }
+            });
+        }
 
-                // 可以添加转发逻辑，如：
-                // - 显示分享选项
-                // - 复制链接到剪贴板
-                // - 调用系统分享API等
+        if (closePosterBtn) {
+            closePosterBtn.addEventListener('click', () => {
+                // 隐藏分享海报
+                if (sharePoster) {
+                    sharePoster.style.display = 'none';
+                }
+            });
+        }
+
+        // 点击海报背景也可以关闭
+        if (sharePoster) {
+            sharePoster.addEventListener('click', (e) => {
+                // 只有点击背景才关闭，不点击海报图片
+                if (e.target === sharePoster) {
+                    sharePoster.style.display = 'none';
+                }
             });
         }
     }

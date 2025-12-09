@@ -148,6 +148,11 @@
 
         <!--结尾-->
         <div class="part part6">
+            <div class="p6_video">
+                <video autoplay loop muted playsinline class="p6Video">
+                    <source src="./media/p6大红袍.mp4" type="video/mp4">
+                </video>
+            </div>
             <div class="p6_mask"></div>
             <div class="p6_text">
                 <img src="./images/p6文字.png" alt="p6文字">
@@ -160,12 +165,26 @@
 
 
     </div>
+    <!--分享海报-->
+    <div class="p6_share_poster" id="p6SharePoster" style="display: none;">
+        <img src="./images/分享海报.jpg" alt="分享海报">
+        <div class="p6_close_poster" id="p6ClosePosterBtn">
+            <svg width="80" height="80" viewBox="0 0 40 40" fill="none">
+                <circle cx="20" cy="20" r="20" fill="rgba(255,255,255,0.3)" />
+                <path d="M25 15L15 25M15 15L25 25" stroke="white" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </div>
+    </div>
 
 
 
     <script src="././js/script.js">
     </script>
-
+    <script src="https://apimedia.fjsen.com/w/wx_share.js"></script>
+    <script language="javascript">
+        fjsenWx.setData('title', '一片叶子的环球旅行')
+        fjsenWx.setData('imgUrl', 'https://app5.fjsen.com/h5/2025kzqs/images/share_pic.jpg');
+    </script>
 </body>
 
 </html>
