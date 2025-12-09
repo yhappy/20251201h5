@@ -718,6 +718,16 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.p6_share_poster.show {
+  opacity: 1;
+}
+
+.p6_share_poster.hide {
+  opacity: 0;
 }
 
 .p6_share_poster img {
@@ -731,7 +741,7 @@ li {
   width: 240px;
   text-align: center;
   top: 50%;
-  transform: translateY(37vh);
+  transform: translateY(38vh);
   color: white;
   font-size: 28px;
   font-family: "微软雅黑", sans-serif;
@@ -743,21 +753,47 @@ li {
 
 .p6_close_poster {
   position: absolute;
-  transform: translateX(-50%);
+  transform: translateY(-43vh);
   top: 50%;
-  transform: translateY(-41vh);
   cursor: pointer;
   z-index: 1001;
-  transition: transform 0.3s ease;
-}
-
-.p6_close_poster:hover {
-  transform: scale(1.1);
 }
 
 .p6_close_poster svg {
   width: 80px;
   height: 80px;
+}
+
+/* 移除所有可点击元素的选中效果 */
+.loading_click,
+.p1_click_view,
+.p1_click_goods,
+.p2_click_view,
+.p2_click_goods,
+.p3_click_view,
+.p3_click_camel,
+.p4_click_view,
+.p4_click_goods,
+.p5_click_view,
+.p5_click_goods,
+.p6_click_share,
+.p6_close_poster {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  outline: none;
+}
+
+/* 移除图片的拖拽功能 */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 
 /* 提示设置 */

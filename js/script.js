@@ -52,7 +52,7 @@ class H5App {
         this.bindEvents();
 
         // 调试模式直接进入主场景
-        this.enterMainScene();
+        // this.enterMainScene();
     }
 
     /**
@@ -127,12 +127,39 @@ class H5App {
     }
 
     /**
+     * 开始体验（从加载页进入）
+     */
+    startExperience() {
+        this.dom.loading.style.display = 'none';
+        this.dom.container.style.display = 'block';
+
+        // 暂停所有背景视频
+        this.pauseAllVideos();
+
+        // 立即播放p6视频
+        this.playP6Video();
+    }
+
+    /**
      * 暂停所有背景视频
      */
     pauseAllVideos() {
         Array.from(document.getElementsByClassName('bgVideo')).forEach(video => {
-            video.pause();
+            // p6视频除外，让它循环播放
+            if (!video.classList.contains('p6VideoAuto')) {
+                video.pause();
+            }
         });
+    }
+
+    /**
+     * 播放p6视频
+     */
+    playP6Video() {
+        const p6Video = document.querySelector('.p6VideoAuto');
+        if (p6Video) {
+            p6Video.play().catch(err => console.warn('p6视频播放失败:', err));
+        }
     }
 
     /**
@@ -198,7 +225,7 @@ class H5App {
 
 
         // 点击开始按钮
-        onClick('loadingClickBtn', this.enterMainScene);
+        onClick('loadingClickBtn', this.startExperience);
 
         // p1和p2点击货物交互
         this.bindP1GoodsInteraction();
@@ -438,40 +465,58 @@ class H5App {
     }
 
     /**
-       * 绑定p6点击转发交互
-       */
+     * 绑定p6点击转发交互
+     */
     bindP6ShareInteraction() {
         const clickShareBtn = document.getElementById('p6ClickShareBtn');
         const sharePoster = document.getElementById('p6SharePoster');
         const closePosterBtn = document.getElementById('p6ClosePosterBtn');
 
+        // 点击转发按钮显示海报
         if (clickShareBtn) {
             clickShareBtn.addEventListener('click', () => {
-                // 隐藏点击转发按钮
-                // clickShareBtn.style.display = 'none';
-
-                // 显示分享海报
                 if (sharePoster) {
+                    // 先显示海报容器
                     sharePoster.style.display = 'flex';
+                    // 立即添加show类开始fadeIn动画
+                    requestAnimationFrame(() => {
+                        sharePoster.classList.add('show');
+                    });
                 }
             });
         }
 
+        // 点击关闭按钮隐藏海报
         if (closePosterBtn) {
-            closePosterBtn.addEventListener('click', () => {
-                // 隐藏分享海报
+            closePosterBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // 防止事件冒泡
                 if (sharePoster) {
-                    sharePoster.style.display = 'none';
+                    // 移除show类开始fadeOut动画
+                    sharePoster.classList.remove('show');
+                    sharePoster.classList.add('hide');
+                    // 等待动画完成后隐藏容器
+                    setTimeout(() => {
+                        sharePoster.style.display = 'none';
+                        sharePoster.classList.remove('hide');
+                    }, 300); // 与CSS transition时间一致
                 }
             });
         }
 
-        // 点击海报背景也可以关闭
+        // 点击海报背景关闭海报（不点击图片）
         if (sharePoster) {
             sharePoster.addEventListener('click', (e) => {
-                // 只有点击背景才关闭，不点击海报图片
+                // 只有点击背景容器时才关闭，不点击图片
                 if (e.target === sharePoster) {
-                    sharePoster.style.display = 'none';
+                    e.stopPropagation(); // 防止事件冒泡
+                    // 移除show类开始fadeOut动画
+                    sharePoster.classList.remove('show');
+                    sharePoster.classList.add('hide');
+                    // 等待动画完成后隐藏容器
+                    setTimeout(() => {
+                        sharePoster.style.display = 'none';
+                        sharePoster.classList.remove('hide');
+                    }, 300); // 与CSS transition时间一致
                 }
             });
         }
