@@ -2,14 +2,6 @@
  * 页面配置常量
  */
 const CONFIG = {
-    // 容器宽度配置
-    WIDTHS: {
-        INITIAL: 2278,
-        PART2: 4281,
-        PART3: 13449,
-        PART4: 19666,
-        PART5: 37333
-    },
     // 进度条配置
     PROGRESS: {
         MAX_PERCENT: 100,
@@ -17,8 +9,6 @@ const CONFIG = {
     },
     // 动画延迟配置
     DELAYS: {
-        FADE_IN_TITLE: 800,
-        FADE_IN_TIP: 2800,
         SCROLL_RESET: 100
     }
 };
@@ -33,8 +23,7 @@ class H5App {
         this.dom = {
             loading: document.querySelector('.loading'),
             container: document.querySelector('.container'),
-            progressLine: document.querySelector('.progress'),
-            loadingText: document.querySelector('.p0_loading')
+            progressLine: document.querySelector('.progress')
         };
 
         this.init();
@@ -50,9 +39,6 @@ class H5App {
             this.adaptToMobile();
         }
         this.bindEvents();
-
-        // 调试模式直接进入主场景
-        // this.enterMainScene();
     }
 
     /**
@@ -102,10 +88,6 @@ class H5App {
      * 加载完成回调
      */
     onLoadingComplete() {
-        if (this.dom.loadingText) {
-            this.dom.loadingText.style.display = 'none';
-        }
-
         // 延迟1秒后显示点击开始按钮
         setTimeout(() => {
             const clickBtn = document.getElementById('loadingClickBtn');
@@ -113,17 +95,6 @@ class H5App {
                 this.fadeIn(clickBtn);
             }
         }, 1000);
-    }
-
-    /**
-     * 进入主场景
-     */
-    enterMainScene() {
-        this.dom.loading.style.display = 'none';
-        this.dom.container.style.display = 'block';
-
-        // 暂停所有背景视频
-        this.pauseAllVideos();
     }
 
     /**
@@ -163,14 +134,6 @@ class H5App {
     }
 
     /**
-     * 更新容器宽度
-     */
-    setContainerWidth(width) {
-        this.dom.container.style.width = `${width}px`;
-    }
-
-
-    /**
      * 元素淡入效果
      */
     fadeIn(selectorOrElement) {
@@ -201,19 +164,6 @@ class H5App {
     }
 
     /**
-     * 显示/隐藏元素
-     */
-    show(selector) {
-        const el = document.querySelector(selector);
-        if (el) el.style.display = 'block';
-    }
-
-    hide(selector) {
-        const el = document.querySelector(selector);
-        if (el) el.style.display = 'none';
-    }
-
-    /**
      * 绑定所有事件监听
      */
     bindEvents() {
@@ -222,7 +172,6 @@ class H5App {
             const el = document.getElementById(id);
             if (el) el.addEventListener('click', handler.bind(this));
         };
-
 
         // 点击开始按钮
         onClick('loadingClickBtn', this.startExperience);
@@ -245,15 +194,6 @@ class H5App {
 
         // p6点击转发交互
         this.bindP6ShareInteraction();
-
-        // 弹窗系统
-        this.bindPopups();
-
-        // 浇水按钮（场景切换）
-        this.bindWaterButtons();
-
-        // 视频弹窗
-        this.bindVideoPopup();
     }
 
     /**
@@ -407,7 +347,6 @@ class H5App {
        */
     bindP4MerchantInteraction() {
         const clickGoodsBtn = document.getElementById('p4ClickMerchantBtn');
-        const merchantImg = document.querySelector('.p4_click_merchant_img');
         const checkTeaImg = document.querySelector('.p4_check_tea_img');
         const checkTeaGif = document.querySelector('.p4_check_tea_gif');
 
@@ -417,7 +356,6 @@ class H5App {
                 clickGoodsBtn.style.display = 'none';
 
                 // 隐藏静态商人图片，显示查看茶叶动画
-                if (merchantImg) merchantImg.style.display = 'none';
                 if (checkTeaImg) checkTeaImg.style.display = 'none';
                 if (checkTeaGif) checkTeaGif.style.display = 'block';
             });
@@ -521,70 +459,7 @@ class H5App {
             });
         }
     }
-
-    /**
-     * 绑定弹窗事件
-     */
-    bindPopups() {
-        const bindPopup = (btnId, imgId) => {
-            const btn = document.getElementById(btnId);
-            const img = document.getElementById(imgId);
-
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    if (img) img.style.display = 'block';
-                });
-            }
-
-            if (img) {
-                img.addEventListener('click', (e) => {
-                    img.style.display = 'none';
-                    e.stopPropagation();
-                });
-            }
-        };
-
-        // Part 2 弹窗
-        bindPopup('p2PopupBtn', 'p2PopupImg');
-
-        // Part 3 弹窗（3个）
-        ['1', '2', '3'].forEach(num => {
-            bindPopup(`p3PopupBtn${num}`, `p3PopupImg${num}`);
-        });
-    }
-
-    /**
-     * 绑定浇水按钮事件
-     */
-    bindWaterButtons() {
-        // 所有场景已初始显示，无需点击切换逻辑
-        // 保留此方法以维持代码结构，但功能已禁用
-    }
-
-    /**
-     * 绑定视频弹窗事件
-     */
-    bindVideoPopup() {
-        const openBtn = document.getElementById('videoPopupBtn');
-        const closeBtn = document.getElementById('videoPopupCloseBtn');
-        const player = document.querySelector('.fjsen-player');
-
-        if (openBtn && player) {
-            openBtn.addEventListener('click', () => {
-                player.style.display = 'block';
-                if (closeBtn) closeBtn.style.display = 'block';
-            });
-        }
-
-        if (closeBtn && player) {
-            closeBtn.addEventListener('click', () => {
-                player.style.display = 'none';
-                closeBtn.style.display = 'none';
-            });
-        }
-    }
 }
 
 // 启动应用
 document.addEventListener('DOMContentLoaded', () => new H5App());
-
