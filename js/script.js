@@ -26,6 +26,16 @@ class H5App {
             progressLine: document.querySelector('.progress')
         };
 
+        // BGM播放器状态
+        this.bgm = {
+            audio: null,
+            btn: null,
+            playIcon: null,
+            pauseIcon: null,
+            text: null,
+            isPlaying: false
+        };
+
         this.init();
     }
 
@@ -34,6 +44,7 @@ class H5App {
      */
     init() {
         this.startLoadingAnimation();
+        this.initBGM();
 
         if (this.isMobileDevice()) {
             this.adaptToMobile();
@@ -104,11 +115,19 @@ class H5App {
         this.dom.loading.style.display = 'none';
         this.dom.container.style.display = 'block';
 
+        // 显示BGM播放按钮
+        if (this.bgm.btn) {
+            this.bgm.btn.parentElement.style.display = 'block';
+        }
+
         // 暂停所有背景视频
         this.pauseAllVideos();
 
         // 立即播放p6视频
         this.playP6Video();
+
+        // 直接播放BGM
+        this.playBGM();
     }
 
     /**
@@ -175,6 +194,9 @@ class H5App {
 
         // 点击开始按钮
         onClick('loadingClickBtn', this.startExperience);
+
+        // BGM播放按钮
+        this.bindBGMInteraction();
 
         // p1和p2点击货物交互
         this.bindP1GoodsInteraction();
@@ -457,6 +479,156 @@ class H5App {
                     }, 300); // 与CSS transition时间一致
                 }
             });
+        }
+    }
+
+    /**
+     * 初始化BGM播放器
+     */
+    initBGM() {
+        // 获取DOM元素
+        this.bgm.audio = document.getElementById('bgmAudio');
+        this.bgm.btn = document.getElementById('bgmBtn');
+        this.bgm.icon = document.querySelector('.bgm-icon');
+        this.bgm.text = document.querySelector('.bgm-text');
+
+        if (!this.bgm.audio || !this.bgm.btn) {
+            console.warn('BGM播放器元素未找到');
+            return;
+        }
+
+        // 设置初始状态 - 未播放，无旋转动画
+        this.updateBGMState(false);
+
+        // 设置音量
+        this.bgm.audio.volume = 0.6;
+
+        // 音频事件监听
+        this.bgm.audio.addEventListener('loadstart', () => {
+            console.log('BGM开始加载');
+        });
+
+        this.bgm.audio.addEventListener('canplay', () => {
+            console.log('BGM可以播放，时长:', this.bgm.audio.duration);
+        });
+
+        this.bgm.audio.addEventListener('loadeddata', () => {
+            console.log('BGM数据加载完成，时长:', this.bgm.audio.duration);
+        });
+
+        this.bgm.audio.addEventListener('error', (e) => {
+            console.warn('BGM加载失败:', e);
+            console.warn('错误详情:', this.bgm.audio.error);
+            this.bgm.btn.style.display = 'none';
+        });
+
+        // 音频播放事件
+        this.bgm.audio.addEventListener('play', () => {
+            console.log('BGM开始播放');
+            this.bgm.isPlaying = true;
+            this.updateBGMState(true);
+        });
+
+        this.bgm.audio.addEventListener('pause', () => {
+            console.log('BGM暂停');
+            this.bgm.isPlaying = false;
+            this.updateBGMState(false);
+        });
+
+        // 音频播放结束事件（循环播放会自动重新开始）
+        this.bgm.audio.addEventListener('ended', () => {
+            console.log('BGM播放结束，重新开始');
+        });
+
+        // 添加调试用的全局访问
+        window.bgmDebug = this.bgm;
+    }
+
+    /**
+     * 绑定BGM播放交互
+     */
+    bindBGMInteraction() {
+        if (this.bgm.btn) {
+            this.bgm.btn.addEventListener('click', () => {
+                this.toggleBGM();
+            });
+        }
+    }
+
+    /**
+     * 切换BGM播放状态
+     */
+    toggleBGM() {
+        if (!this.bgm.audio) return;
+
+        if (this.bgm.isPlaying) {
+            this.pauseBGM();
+        } else {
+            this.playBGM();
+        }
+    }
+
+    
+    /**
+     * 播放BGM
+     */
+    playBGM() {
+        if (!this.bgm.audio) {
+            console.warn('BGM音频元素未找到');
+            return;
+        }
+
+        // 确保音频已加载
+        if (this.bgm.audio.readyState < 2) {
+            console.log('BGM未加载完成，正在加载...');
+            this.bgm.audio.load();
+        }
+
+        // 设置音量
+        this.bgm.audio.volume = 0.6;
+
+        // 尝试播放
+        const playPromise = this.bgm.audio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                console.log('BGM播放成功');
+                this.bgm.isPlaying = true;
+                this.updateBGMState(true);
+            }).catch((error) => {
+                console.warn('BGM播放失败:', error);
+                console.warn('错误名称:', error.name);
+                console.warn('可能原因：浏览器阻止自动播放，需要用户交互');
+                this.bgm.isPlaying = false;
+                this.updateBGMState(false);
+            });
+        }
+    }
+
+    /**
+     * 暂停BGM
+     */
+    pauseBGM() {
+        if (!this.bgm.audio) return;
+
+        this.bgm.audio.pause();
+        this.bgm.isPlaying = false;
+        this.updateBGMState(false);
+        console.log('BGM已暂停');
+    }
+
+    /**
+     * 更新BGM显示状态
+     */
+    updateBGMState(isPlaying) {
+        if (!this.bgm.icon) return;
+
+        if (isPlaying) {
+            // 添加旋转动画类
+            this.bgm.icon.classList.add('playing');
+        } else {
+            // 移除旋转动画类
+            this.bgm.icon.classList.remove('playing');
         }
     }
 }

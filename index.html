@@ -25,6 +25,29 @@
         <div class="loading_click" id="loadingClickBtn">
             <img src="./images/加载页点击.png?v=20251210093003" alt="点击开始">
         </div>
+        <!-- 隐藏的音频元素 -->
+        <audio id="bgmAudio" loop preload="auto">
+            <source src="./media/bgm.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- BGM播放按钮 - 移动到body层级 -->
+    <div class="bgm-player" id="bgmPlayer" style="display: none;">
+        <div class="bgm-btn" id="bgmBtn">
+            <svg class="bgm-icon" width="60" height="60" viewBox="0 0 60 60">
+                <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.8)" stroke="#333" stroke-width="2" />
+                <!-- 一个杆的音乐形状 -->
+                <g transform="translate(30, 30)">
+                    <!-- 音符符杆 -->
+                    <path d="M 0 -18 L 0 12" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round" />
+                    <!-- 音符符尾 -->
+                    <path d="M 0 -18 Q 8 -14, 10 -8 Q 8 -6, 0 -10" fill="#333" />
+                    <!-- 音符符头 -->
+                    <ellipse cx="0" cy="14" rx="6" ry="4" fill="#333" transform="rotate(-20 0 14)" />
+                </g>
+            </svg>
+            <div class="bgm-text" style="display: none;">BGM</div>
+        </div>
     </div>
 
     <!--正篇-->
@@ -45,7 +68,8 @@
             </div>
             <div class="p1_package">
                 <img class="p1_package_img" src="./images/p1装箱.png?v=20251210093003" alt="p1装箱">
-                <img class="p1_package_gif" src="./images/p1装箱.gif?v=20251210093003" alt="p1装箱动画" style="display: none;">
+                <img class="p1_package_gif" src="./images/p1装箱.gif?v=20251210093003" alt="p1装箱动画"
+                    style="display: none;">
             </div>
             <div class="p1_click_goods" id="p1ClickGoodsBtn">
                 <img src="./images/p1点击货物.png?v=20251210093003" alt="p1点击货物">
@@ -116,7 +140,8 @@
             </div>
             <div class="p4_click_merchant">
                 <img class="p4_check_tea_img" src="./images/p4查看茶叶.png?v=20251210093003" alt="p4查看茶叶">
-                <img class=" p4_check_tea_gif" src="./images/p4查看茶叶.gif?v=20251210093003" alt="p4查看茶叶动画" style="display: none;">
+                <img class=" p4_check_tea_gif" src="./images/p4查看茶叶.gif?v=20251210093003" alt="p4查看茶叶动画"
+                    style="display: none;">
             </div>
             <div class="p4_click_goods" id="p4ClickMerchantBtn">
                 <img src="./images/p4点击商人.png?v=20251210093003" alt="p4点击商人">
